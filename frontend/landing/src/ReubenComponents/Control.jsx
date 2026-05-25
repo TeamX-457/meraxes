@@ -6,12 +6,12 @@ const Control = () => {
             <div className='max-w-7xl w-full flex flex-col lg:flex-row gap-12 lg:gap-24 items-center'>
 
                 {/* left - Content and Metric Lists */}
-                <div className='w-full lg:w-1/2 flex flex-col space-y-10'>
+                <div className='w-full lg:w-1/2 flex flex-col gap-10'>
                     <div>
-                        <h1 className='text-5xl md:text-6xl text-white font-heading tracking-tight leading-tight mb-4'>
+                        <h1 className='text-5xl md:text-6xl text-white font-heading mb-4'>
                             Control every dial.
                         </h1>
-                        <h2 className='text-[#8b949e] font-body text-base md:text-lg leading-relaxed max-w-xl'>
+                        <h2 className='text-[#8b949e] font-body text-base md:text-lg'>
                             Adjust model speed, intent threshold, and FAQ weighting per bot. Live retraining, source control on every change.
                         </h2>
                     </div>
