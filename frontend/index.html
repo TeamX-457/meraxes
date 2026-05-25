@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meraxes</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Tailwind configuration -->
+    <!-- Please do not touch!!!! -->
+    <style type="text/tailwindcss">
+      @theme {
+        --color-primary: #1e9df1;
+        --color-primary-foreground: #ffffff;
+        --color-secondary: #0f1419;
+        --color-secondary-foreground: #ffffff;
+        --color-accent-background: #e3ecf6;
+        --color-accent-foreground: #1e9df1;
+        --color-foreground: #000000;
+        --color-background: #e7e9ea;
+        --font-heading: "Canela", "Instrument Serif";
+        --font-body: "Neue-Montreal", "Inter";
+      }
+
+      .dark {
+        --color-background: #000000;
+        --color-foreground: #e7e9ea;
+        --color-primary: #1c9cf0;
+        --color-accent-background: #061622;
+        --color--accent-foreground: #1c9cf0;
+        --color-primary-foreground: #ffffff;
+        --color-secondary: #f0f3f4;
+        --color-secondary-foreground: #0f1419;
+        --font-heading: "Canela", "Instrument Serif";
+        --font-body: "Inter";
+      }
+    </style>
+  </head>
+  <body class="bg-accent-background antialiased">
+    <div class="flex">
+      <!-- Sidebar -->
+      <aside
+        class="bg-secondary-foreground h-[100dvh] border-foreground/10 w-[23%] py-4 border-r"
+      >
+        <div
+          class="text-foreground border-b border-foreground/10 items-start justify-start px-8 py-4 flex gap-2"
+        >
+          <div
+            class="bg-primary h-8 w-8 flex items-center justify-center rounded-full"
+          >
+            <i class="fa-solid fa-code text-white"></i>
+          </div>
+          <div class="flex flex-col">
+            <h1 class="font-heading text-2xl opacity-80">Meraxes</h1>
+            <p class="text-xs font-body opacity-60 tracking-widest">
+              CHATBOT PLATFORM
+            </p>
+          </div>
+        </div>
+        <!-- Navigation Links -->
+        <div class="text-foreground space-y-3 py-4">
+          <div class="mb-12 px-8">
+            <h1 class="opacity-60 tracking-wider font-heading">WORKSPACE</h1>
+            <p class="font-body opacity-60">Embed on any website</p>
+          </div>
+          <div class="flex gap-5 navlinks items-center text-lg">
+            <i class="fa-solid text-primary-foreground/30 fa-circle-nodes"></i>
+            <a href="" class="font-body opacity-60 hover:opacity-100"
+              >My bots</a
+            >
+          </div>
+          <div class="flex gap-5 navlinks items-center text-lg">
+            <i
+              data-lucide="ChartColumnDecreasing"
+              class="text-primary-foreground/30"
+            ></i>
+            <a href="" class="font-body opacity-60">Analytics</a>
+          </div>
+          <div class="flex gap-5 navlinks items-center text-lg">
+            <i data-lucide="Plus" class="text-primary-foreground"></i>
+            <a href="" class="font-body opacity-60">Create bot</a>
+          </div>
+          <div class="flex gap-5 navlinks items-center text-lg">
+            <i class="text-primary-foreground/30 fa-message"></i>
+            <a href="" class="font-body opacity-60">Customer questions</a>
+          </div>
+          <div class="flex gap-5 navlinks text-lg">
+            <i
+              data-lucide="comment"
+              class="text-primary-foreground/30 fa-comment"
+            ></i>
+            <a href="" class="font-body opacity-60">Test Chat</a>
+          </div>
+          <div class="flex gap-5 navlinks items-center text-lg">
+            <i class="text-primary-foreground/30 fa-circle-nodes"></i>
+            <a href="" class="font-body opacity-60">Embed on website</a>
+          </div>
+          <div class="flex gap-5 navlinks items-center text-lg">
+            <i data-lucide="camera" class="text-primary-foreground/30"></i>
+            <a href="" class="font-body opacity-60">Image Studio</a>
+          </div>
+        </div>
+        <div></div>
+      </aside>
+
+      <div></div>
+    </div>
+    <script src="index.js"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
+
+<!-- 
+LOGO - Meraxes CHATBOT PLATFORM
+
+WORKSPACE
+-Embed on any website
+
+Navlinks
+My bots
+Analytics
+Create bot
+Customer questions
+test chat
+image studio
+Embed on website 
+-->
