@@ -1,0 +1,103 @@
+/* Custom Fonts setup*/
+/* Do not touch!!!!!!!! */
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/canela/fonnts.com-Canela-Black.ttf");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/canela/fonnts.com-Canela-Medium.ttf");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/canela/fonnts.com-Canela-Regular.ttf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/canela/fonnts.com-Canela-Thin.ttf");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Bold.otf");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-BoldItalic.otf");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Italic.otf");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Light.otf");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-LightItalic.otf");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Medium.otf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-MediumItalic.otf");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Regular.otf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+i {
+  opacity: 30%;
+}
+
+.navlinks {
+  transition: all 300ms ease;
+  padding: 10px;
+  height: 45px;
+}
+.navlinks:hover {
+  background-color: #1c9cf0;
+  color: #ffffff;
+  opacity: 100%;
+  border-radius: 20px;
+}
