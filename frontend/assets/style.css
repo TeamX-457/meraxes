@@ -90,14 +90,51 @@ i {
   opacity: 30%;
 }
 
-.navlinks {
-  transition: all 300ms ease;
-  padding: 10px;
-  height: 45px;
+.nav-item {
+  position: relative;
+  transition: background 0.15s;
 }
-.navlinks:hover {
-  background-color: #1c9cf0;
-  color: #ffffff;
-  opacity: 100%;
-  border-radius: 20px;
+
+.nav-item:hover .nav-label {
+  opacity: 1;
+}
+.nav-item:hover .nav-icon-wrap {
+  color: rgba(231, 233, 234, 0.7);
+}
+
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 18px;
+  width: 2px;
+  background: #1e9df1;
+  border-radius: 0 2px 2px 0;
+}
+
+.nav-item.active .nav-label {
+  color: var(--color-foreground);
+  opacity: 1;
+}
+.nav-item.active .nav-icon-wrap {
+  color: var(--color-primary);
+}
+
+.nav-icon-wrap {
+  color: rgba(231, 233, 234, 0.25);
+  transition: color 0.15s;
+}
+
+.nav-label {
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+.user-row {
+  transition: background 0.15s;
+}
+.user-row:hover {
+  background: color-mix(in srgb, var(--color-foreground) 4%, transparent);
 }
