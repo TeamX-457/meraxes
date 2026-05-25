@@ -7,7 +7,7 @@ const Steps = () => {
     
     return (
         <div className='bg-secondary flex flex-col justify-center gap-10 p-5 md:h-screen h-full '>
-            <h1 className='text-3xl text-white text-6xl'>Three steps to live</h1>
+            <h1 className='text-3xl text-white text-6xl'>Three steps to live.</h1>
 
             <div className=' grid md:grid-cols-3  gap-7'>
                 <div className='w-full h-60 text-cyan-300 grid justify-between rounded-xl p-5 outline bg-blue-950'>
