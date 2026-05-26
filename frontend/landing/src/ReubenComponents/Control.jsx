@@ -34,7 +34,7 @@ const Control = () => {
                   />
                 </svg>
               </span>
-              <h2 className="text-secondary-foreground font-semibold">38ms</h2>
+              <h2 className="dark:text-primary-foreground text-secondary font-semibold">38ms</h2>
               <h2 className="text-[#8b949e] text-xs pl-1">p95</h2>
             </div>
           </div>
@@ -58,14 +58,14 @@ const Control = () => {
                   />
                 </svg>
               </span>
-              <h2 className="text-secondary-foreground font-semibold">0.94</h2>
+              <h2 className="dark:text-primary-foreground text-secondary  font-semibold">0.94</h2>
             </div>
           </div>
 
           <div className="flex w-full justify-between border-b border-[#21262d] pb-4 items-center">
             <h1 className="text-[#8b949e] font-medium">Active bots</h1>
             <div className="flex items-center space-x-2 font-mono">
-              <h2 className="text-secondary-foreground font-semibold">12</h2>
+              <h2 className="dark:text-primary-foreground text-secondary  font-semibold">12</h2>
               <h2 className="text-[#8b949e] text-xs pl-1">live</h2>
             </div>
           </div>
@@ -73,7 +73,7 @@ const Control = () => {
           <div className="flex w-full justify-between border-b border-[#21262d] pb-4 items-center">
             <h1 className="text-[#8b949e] font-medium">Embeds served</h1>
             <div className="flex items-center space-x-2 font-mono">
-              <h2 className="text-secondary-foreground font-semibold">184k</h2>
+              <h2 className="dark:text-primary-foreground text-secondary     font-semibold">184k</h2>
               <h2 className="text-[#8b949e] text-xs pl-1">/ mo</h2>
             </div>
           </div>

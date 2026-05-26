@@ -19,7 +19,7 @@ const Ready = () => {
 
                 {/* Buttons Group */}
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 w-full sm:w-auto">
-                    <button className="w-full sm:w-auto px-8 py-3 rounded-full bg-primary text-secondary-foreground font-medium hover:bg-background  dark:hover:bg-white transition-colors duration-200 text-sm md:text-base">
+                    <button className="w-full sm:w-auto px-8 py-3 rounded-full bg-primary  text-secondary-foreground font-medium hover:bg-secondary cursor-pointer  dark:hover:bg-white transition-colors duration-200 text-sm md:text-base">
                         Create account
                     </button>
                     <button className="w-full sm:w-auto px-8 py-3 rounded-full border border-gray-700 dark:border-white bg-transparent text-foreground font-medium hover:bg-foreground transition-colors hover:text-white dark:hover:text-black duration-200 text-sm md:text-base">
