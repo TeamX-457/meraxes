@@ -3,55 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marexes</title>
+    <title>Login</title>
     <link rel="stylesheet" href="project.css">
 </head>
-
 <body>
-<!----Animation container-->
-    <div id="introLines"></div>
-    <div class="containers">
-        <div class="left">
-            <h1>
-                Train neural models the on the
-                <span>shape of your business.</span>  
-            </h1>
-
-            <div class="cards">
-            <div class="card">Local inference</div>
-            <div class="card">3ms p95</div>
-            <div class="card">Hybird mode</div>
-            </div>
-            <div class="chart">
     
-        </div>
+    <div class="container">
+<!--LEFT: FORM--->
+    <div class="card">
+        <h2>Welecome back</h2>
+        <p>Log in to your Meraxes workspace.</p>
+        
+        <form>
+            <label>Email</label>
+            <input type="email" placeholder="Enter email">
 
-        <div class="form-box">
-<!------your login form------>
-            <h2>Welecome back</h2>
-            <p>Log in to your workspace</p>
+            <label>Password <a href="#">Forgot?</a></label>
+            <input type="password" placeholder="Enter Password">
+        </form>
+    </div>
 
-            <form>
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" placeholder="email">
-                </div>
+<!---Right: Text-->
+   <div class="side-text">
+      <p>New to Meraxes?</p>
+      <a href="#">Create account</a>
+   </div>
+   </div>
 
-                <div class="input-group">
-                    <label>Password</label>
-                    <input type="password" placeholder="Enter password">
-
-                </div>
-                
-
-                 <button>Sign In</button>
-            </form>
-
-            <p class="signin"></p>
-                New to Meraxes? <a href="#">Create account</a>
-            </p>
-        </div>
-<!----js must be here-->
     <script src="project.js"></script>
 </body>
 </html>
