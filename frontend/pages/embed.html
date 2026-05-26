@@ -57,16 +57,12 @@
       The layout (aside + header) is injected by layout.js.
     -->
     <main class="bg-secondary-foreground p-12 min-w-full h-full">
-      <h1 class="text-primary tracking-wider text-2xl font-heading font-bold">Embed on Website</h1>
+      <h1 class="text-secondary tracking-widest text-2xl font-heading font-bold">Embed on Website</h1>
         <P class="text-foreground font-body py-2">Paste the snippet before </body>. Your API must be reachable in position (try ngrok).</P>
         <div class="flex flex-col text-foreground border border-primary gap-1 rounded-2xl p-3">
-          <h3>Bot</h3>
-          <select class="border [&>option]:text-black focus:outline focus:outline-primary font-body border-primary w-[20%] p-0.5 rounded-2xl">
-            <option value="">I'm bot 1</option>
-            <option value="">I'm bot 2</option>
-            <option value="">I'm bot 3</option>
-            <option value="">I'm bot 4</option>
-            <option value="">I'm bot 5</option>
+          <h3 class="text-xs font-bold">Bot</h3>
+          <select class="border [&>option]:text-black text-sm focus:outline focus:outline-primary font-body border-primary w-[20%] p-0.5 rounded-2xl">
+            <option value="">Select a bot</option>
           </select>
         </div>
     </main>
