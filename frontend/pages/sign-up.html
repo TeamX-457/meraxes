@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <style type="text/theme">
+        @theme {
+            --font-sans: 'Inter', sans-serif;
+            --font-serif: 'Instrument Serif', serif;
+            --color-twitter: #1c9cf0;
+            --color-twitter-hover: #1a8cd8;
+        }
+    </style>
+
+    <style>
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .animate-gradient-text {
+            background-image: linear-gradient(to right, #1c9cf0, #a855f7, #22d3ee, #1c9cf0);
+            background-size: 300% 300%;
+            animation: gradient-shift 6s ease infinite;
+            filter: drop-shadow(0 0 15px rgba(28, 156, 240, 0.35));
+        }
+    </style>
+    <title>Create your workspace - Meraxes</title>
+</head>
+<body class="h-screen w-screen bg-[#030712] text-slate-100 font-sans overflow-hidden antialiased relative">
+    
+    <canvas id="starfield" class="absolute inset-0 w-full h-full pointer-events-none z-0 bg-[#030712]"></canvas>
+
+    <main class="grid grid-cols-1 md:grid-cols-2 min-h-full items-center relative z-10 bg-transparent">
+        
+        <section class="p-[20px] md:pr-[10px] md:pl-[40px] flex flex-col justify-between h-full border-b md:border-b-0 md:border-r border-slate-800/50 hidden md:flex relative z-20">
+            
+            <div class="flex items-center gap-2 mb-[30px]">
+                <h1 class="font-serif text-xl font-medium tracking-wide text-slate-100">Meraxes</h1>
+            </div>
+            
+            <div class="my-auto max-w-[500px]">
+                <h2 class="font-serif text-[37px] leading-[1.15] mb-[35px] text-slate-100 font-normal">
+                    Train neural models on the <br>
+                    <span class="text-transparent bg-clip-text animate-gradient-text italic font-serif">shape of your business.</span>
+                </h2>
+
+                <div class="grid grid-cols-3 gap-[12px] mb-[15px]">
+                    <div class="border border-slate-800/80 p-[10px] rounded-[14px] bg-slate-900/60 backdrop-blur-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-[18px] mb-[12px] text-twitter">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z" />
+                        </svg>
+                        <p class="text-[13px] font-medium text-slate-400">Local inference</p>
+                    </div>
+                    <div class="border border-slate-800/80 p-[10px] rounded-[14px] bg-slate-900/60 backdrop-blur-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-[18px] mb-[12px] text-twitter">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
+                        </svg>
+                        <p class="text-[13px] font-medium text-slate-400">38ms p95</p>
+                    </div>
+                    <div class="border border-slate-800/80 p-[10px] rounded-[14px] bg-slate-900/60 backdrop-blur-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-[18px] mb-[12px] text-twitter">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                        </svg>
+                        <p class="text-[13px] font-medium text-slate-400">Hybrid mode</p>
+                    </div>
+                </div>
+
+                <div class="border border-slate-800/80 bg-slate-900/60 p-[20px] rounded-[14px] backdrop-blur-md flex flex-col relative z-20 shadow-2xl">
+                    <div class="flex justify-between items-center">
+                        <p class="font-mono text-xs text-slate-400">bot_a8f3c2 • live</p>
+                        <span class="flex items-center gap-1.5 text-xs text-emerald-400 font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> training
+                        </span>
+                    </div>
+                    
+                    <div class="p-[30px]"></div>
+                    
+                    <div class="flex justify-between items-center border-t border-slate-900 pt-3">
+                        <p class="text-[10px] font-bold tracking-widest text-slate-500">ACCURACY</p>
+                        <p class="font-mono text-xs font-semibold text-slate-300">0.94</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center text-xs text-slate-600 relative z-20">
+                <span>© Idongesit Ikpe 2026 Meraxes</span>
+            </div>
+        </section>
+
+        <form action="/app" class="pl-[20px] pr-[20px] md:pl-[60px] md:pr-[60px] w-full pt-[10px] pb-[10px] mx-auto relative z-20">
+            <div class="border border-slate-700 rounded-[20px] p-[30px] bg-slate-700/30 backdrop-blur-xl shadow-2xl">
+                
+                <div class="mb-[30px]">
+                    <h1 class="font-serif text-[28px] text-slate-100 font-normal tracking-wide">Create your workspace</h1>
+                    <p class="text-slate-500 text-xs mt-1">Start training models on your business in minutes.</p>
+                </div>
+                
+                <div class="flex flex-col gap-[18px]">
+                    <div class="flex flex-col gap-2">
+                        <label for="name" class="font-medium text-xs text-slate-400">Full name</label>
+                        <input class="bg-[#030712]/80 border border-slate-900 rounded-[10px] w-full px-[14px] py-[10px] text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-twitter transition" type="text" placeholder="Idongesit Ikpe" id="name" required>
+                    </div>
+            
+                    <div class="flex flex-col gap-2">
+                        <label for="email" class="font-medium text-xs text-slate-400">Email</label>
+                        <input class="bg-[#030712]/80 border border-slate-900 rounded-[10px] w-full px-[14px] py-[10px] text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-twitter transition" type="email" placeholder="you@company.com" id="email" required>
+                    </div>
+            
+                    <div class="flex flex-col gap-2">
+                        <label for="password" class="font-medium text-xs text-slate-400">Password</label>
+                        <input class="bg-[#030712]/80 border border-slate-900 rounded-[10px] w-full px-[14px] py-[10px] text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-twitter transition" type="password" placeholder="At least 8 characters" minlength="8" id="password" required>
+                    </div>
+            
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-[20px] w-full mt-4 py-[11px] text-sm cursor-pointer transition-all duration-200 shadow-md shadow-twitter/10" type="submit">
+                        Create account
+                    </button>
+            
+                    <p class="text-center text-xs text-slate-400 mt-2">
+                        Already have one? <a href="#" class="text-blue-500 text-twitter font-medium hover:underline">Log in</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+
+        let stars = [];
+        const starCount = 120;
+        
+        const colors = [
+            'rgba(255, 255, 255, ',
+            'rgba(28, 156, 240, ',  
+            'rgba(168, 85, 247, ', 
+            'rgba(34, 211, 238, '  
+        ];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initStars();
+        }
+
+        class Star {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.baseRadius = Math.random() * 1.1 + 0.4;
+                this.radius = this.baseRadius;
+                
+                this.vx = (Math.random() - 0.5) * 0.15;
+                this.vy = (Math.random() - 0.5) * 0.15;
+                
+                this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+                
+                this.twinkleSpeed = 0.01 + Math.random() * 0.02;
+                this.alphaPhase = Math.random() * Math.PI * 2;
+                this.minAlpha = 0.15;
+                this.maxAlpha = 0.85;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+
+                this.alphaPhase += this.twinkleSpeed;
+                this.alpha = this.minAlpha + (Math.sin(this.alphaPhase) + 1) / 2 * (this.maxAlpha - this.minAlpha);
+                this.radius = this.baseRadius * (1 + (Math.sin(this.alphaPhase) * 0.2));
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `${this.colorBase}${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < starCount; i++) {
+                stars.push(new Star());
+            }
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < stars.length; i++) {
+                for (let j = i + 1; j < stars.length; j++) {
+                    const dx = stars[i].x - stars[j].x;
+                    const dy = stars[i].y - stars[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 90) {
+                        const opacity = (1 - (distance / 90)) * 0.06;
+                        ctx.beginPath();
+                        ctx.moveTo(stars[i].x, stars[i].y);
+                        ctx.lineTo(stars[j].x, stars[j].y);
+                        ctx.strokeStyle = `rgba(148, 163, 184, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            // Enforce explicit true black/dark background clear every frame
+            ctx.fillStyle = '#030712';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            drawConnections();
+
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        animate();
+    </script>
+</body>
+</html>
