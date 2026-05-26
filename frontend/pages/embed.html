@@ -52,7 +52,7 @@
     </style>
   </head>
   <body class="bg-accent-background antialiased">
-    <div class="min-h-screen lg :flex">
+    <div class="min-h-screen lg:flex">
       <aside
         class="border-foreground/10 flex bg-accent-background text-[color:var(--color-foreground)] lg:h-[100dvh] lg:w-[23%] lg:min-w-[300px] flex-col border-r backdrop-blur-sm"
       >
@@ -247,21 +247,33 @@
           </button>
         </div>
       </aside>
+      <div class="flex flex-col lg:w-[77%]">
+        <header class="flex justify-between px-4 pb-4 pt-8">
+          <div>
+            <h1 class="font-heading text-5xl text-foreground">
+              Chatbot Platform
+            </h1>
+            <p class="font-body opacity-60 text-foreground">
+              Embed on any website
+            </p>
+          </div>
+        </header>
+        <main class="bg-secondary-foreground p-12 min-w-full h-full">
+          <h1 class="text-primary tracking-wider text-2xl font-heading font-bold">Embed on Website</h1>
+          <P class="text-foreground font-body py-2">Paste the snippet before </body>. Your API must be reachable in position (try ngrok).</P>
+          <div class="flex flex-col text-foreground border border-primary gap-1 rounded-2xl p-3">
+            <h3>Bot</h3>
+            <select class="border [&>option]:text-black focus:outline focus:outline-primary font-body border-primary w-[20%] p-0.5 rounded-2xl">
+              <option value="">I'm bot 1</option>
+              <option value="">I'm bot 2</option>
+              <option value="">I'm bot 3</option>
+              <option value="">I'm bot 4</option>
+              <option value="">I'm bot 5</option>
+            </select>
+          </div>
+        </main>
+      </div>
     </div>
-    <main>
-      <h1 class="text-primary">Embed on Website</h1>
-      <P>Paste the snippet before </body>. Your API must be reachable in position (try ngrok).</P>
-      <div class="bot">
-        <h3>Bot</h3>
-        <select name="bot" id="">
-      <option value="">I'm bot 1</option>
-      <option value="">I'm bot 2</option>
-      <option value="">I'm bot 3</option>
-      <option value="">I'm bot 4</option>
-      <option value="">I'm bot 5</option>
-    </select>
-  </div>
-    </main>
     <script src="/frontend/assets/index.js"></script>
     <script>
       lucide.createIcons();
