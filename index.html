@@ -51,221 +51,25 @@
       }
     </style>
   </head>
-  <body class="bg-accent-background antialiased">
-    <div class="min-h-screen lg:flex">
-      <aside
-        class="border-foreground/10 flex bg-accent-background text-[color:var(--color-foreground)] lg:h-[100dvh] lg:w-[23%] lg:min-w-[300px] flex-col border-r backdrop-blur-sm"
-      >
-        <div
-          class="flex items-center gap-3 border-b border-foreground/10 px-8 py-5"
-        >
-          <div
-            class="flex h-10 w-10 items-center justify-center rounded-full bg-primary shadow-[0_12px_25px_rgba(30,157,241,0.32)]"
-          >
-            <i class="fa-solid fa-code !text-white text-sm opacity-100"></i>
-          </div>
-          <div class="flex flex-col">
-            <h1
-              class="font-heading text-[2rem] leading-none text-foreground/85"
-            >
-              Meraxes
-            </h1>
-            <p
-              class="font-body text-[10px] tracking-[0.35em] text-foreground/35"
-            >
-              CHATBOT PLATFORM
-            </p>
-          </div>
-        </div>
+  <body>
+    <!--
+      Only put page-specific content here.
+      The layout (aside + header) is injected by layout.js.
+    -->
+    <main class="bg-secondary-foreground min-w-full h-full">
+      <!-- Page content goes here -->
+      <p class="p-8 text-foreground/60">Welcome to Meraxes.</p>
+    </main>
 
-        <div class="px-8 pt-7 pb-3">
-          <h2
-            class="font-heading text-[13px] tracking-[0.28em] text-foreground/50"
-          >
-            WORKSPACE
-          </h2>
-          <p class="mt-1 font-body text-xs text-foreground/80">
-            Embed on any website
-          </p>
-        </div>
-
-        <ul class="flex flex-1 flex-col gap-1 px-3 pb-4">
-          <li
-            class="nav-item group relative flex cursor-pointer items-center gap-4 rounded-2xl px-5 py-3 transition duration-200 ease-out hover:bg-foreground/5"
-          >
-            <span
-              class="nav-marker absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-sm bg-primary opacity-0 transition duration-200"
-            ></span>
-            <span
-              class="nav-icon-wrap flex w-5 justify-center text-foreground/25 transition duration-200 group-hover:text-foreground/72"
-            >
-              <i
-                data-lucide="ChartNetwork"
-                class="text-foreground text-[15px] opacity-100"
-              ></i>
-            </span>
-            <span
-              class="nav-label flex-1 font-body text-[14px] text-foreground/58 transition duration-200 group-hover:text-foreground/90"
-            >
-              My bots
-            </span>
-          </li>
-          <li
-            class="nav-item group relative flex cursor-pointer items-center gap-4 rounded-2xl px-5 py-3 transition duration-200 ease-out hover:bg-foreground/5"
-          >
-            <span
-              class="nav-marker absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-sm bg-primary opacity-0 transition duration-200"
-            ></span>
-            <span
-              class="nav-icon-wrap flex w-5 justify-center text-foreground/25 transition duration-200 group-hover:text-foreground/72"
-            >
-              <i
-                data-lucide="chart-column"
-                class="h-[15px] text-foreground w-[15px]"
-              ></i>
-            </span>
-            <span
-              class="nav-label font-body text-[14px] text-foreground/58 transition duration-200 group-hover:text-foreground/90"
-            >
-              Analytics
-            </span>
-          </li>
-          <li
-            class="nav-item group relative flex cursor-pointer items-center gap-4 rounded-2xl px-5 py-3 transition duration-200 ease-out hover:bg-foreground/5"
-          >
-            <span
-              class="nav-marker absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-sm bg-primary opacity-0 transition duration-200"
-            ></span>
-            <span
-              class="nav-icon-wrap flex w-5 justify-center text-foreground/25 transition duration-200 group-hover:text-foreground/72"
-            >
-              <i
-                data-lucide="plus"
-                class="h-[15px] text-foreground w-[15px]"
-              ></i>
-            </span>
-            <span
-              class="nav-label font-body text-[14px] text-foreground/58 transition duration-200 group-hover:text-foreground/90"
-            >
-              Create bot
-            </span>
-          </li>
-
-          <div class="mx-5 my-2 h-px bg-foreground/6"></div>
-
-          <li
-            class="nav-item group relative flex cursor-pointer items-center gap-4 rounded-2xl px-5 py-3 transition duration-200 ease-out hover:bg-foreground/5"
-          >
-            <span
-              class="nav-marker absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-sm bg-primary opacity-0 transition duration-200"
-            ></span>
-            <span
-              class="nav-icon-wrap flex w-5 justify-center text-foreground/25 transition duration-200 group-hover:text-foreground/72"
-            >
-              <i
-                data-lucide="MessageSquare"
-                class="text-[15px] text-foreground opacity-100"
-              ></i>
-            </span>
-            <span
-              class="nav-label flex-1 font-body text-[14px] text-foreground/58 transition duration-200 group-hover:text-foreground/90"
-            >
-              Customer questions
-            </span>
-          </li>
-          <li
-            class="nav-item group relative flex cursor-pointer items-center gap-4 rounded-2xl px-5 py-3 transition duration-200 ease-out hover:bg-foreground/5"
-          >
-            <span
-              class="nav-marker absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-sm bg-primary opacity-0 transition duration-200"
-            ></span>
-            <span
-              class="nav-icon-wrap flex w-5 justify-center text-foreground/25 transition duration-200 group-hover:text-foreground/72"
-            >
-              <i
-                data-lucide="message-circle"
-                class="h-[15px] text-foreground w-[15px]"
-              ></i>
-            </span>
-            <span
-              class="nav-label font-body text-[14px] text-foreground/58 transition duration-200 group-hover:text-foreground/90"
-            >
-              Test chat
-            </span>
-          </li>
-
-          <div class="mx-5 my-2 h-px bg-foreground/6"></div>
-
-          <li
-            class="nav-item group relative flex cursor-pointer items-center gap-4 rounded-2xl px-5 py-3 transition duration-200 ease-out hover:bg-foreground/5"
-          >
-            <span
-              class="nav-marker absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-sm bg-primary opacity-0 transition duration-200"
-            ></span>
-            <span
-              class="nav-icon-wrap flex w-5 justify-center text-foreground/25 transition duration-200 group-hover:text-foreground/72"
-            >
-              <i
-                data-lucide="ChevronsLeftRightEllipsis"
-                class="text-[15px] text-foreground opacity-100"
-              ></i>
-            </span>
-            <span
-              class="nav-label font-body text-[14px] text-foreground/58 transition duration-200 group-hover:text-foreground/90"
-            >
-              Embed on website
-            </span>
-          </li>
-          <li
-            class="nav-item group relative flex cursor-pointer items-center gap-4 rounded-2xl px-5 py-3 transition duration-200 ease-out hover:bg-foreground/5"
-          >
-            <span
-              class="nav-marker absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-sm bg-primary opacity-0 transition duration-200"
-            ></span>
-            <span
-              class="nav-icon-wrap flex w-5 justify-center text-foreground/25 transition duration-200 group-hover:text-foreground/72"
-            >
-              <i
-                data-lucide="Images"
-                class="h-[15px] text-foreground w-[15px]"
-              ></i>
-            </span>
-            <span
-              class="nav-label font-body text-[14px] text-foreground/58 transition duration-200 group-hover:text-foreground/90"
-            >
-              Image studio
-            </span>
-          </li>
-        </ul>
-
-        <div class="border-t border-foreground/10 p-3">
-          <button
-            id="toggleTheme"
-            class="font-body w-full rounded-lg px-8 py-2 text-[14px] font-light tracking-wide text-foreground/75 transition duration-200 hover:bg-foreground/5 hover:text-foreground"
-          >
-            Switch theme
-          </button>
-        </div>
-      </aside>
-      <div class="flex flex-col lg:w-[77%]">
-        <header class="flex justify-between px-4 pb-4 pt-8">
-          <div>
-            <h1 class="font-heading text-5xl text-foreground">
-              Chatbot Platform
-            </h1>
-            <p class="font-body opacity-60 text-foreground">
-              Embed on any website
-            </p>
-          </div>
-        </header>
-        <main class="bg-secondary-foreground min-w-full h-full">
-          <!-- where the content should go -->
-        </main>
-      </div>
-    </div>
     <script src="/frontend/assets/index.js"></script>
-    <script>
-      lucide.createIcons();
+    <script type="module">
+      import { renderLayout } from "/frontend/assets/layout.js";
+
+      renderLayout({
+        title: "Chatbot Platform",
+        subtitle: "Embed on any website",
+        activeNav: "my-bots", // matches the `id` in layout.js NAV_ITEMS
+      });
     </script>
   </body>
 </html>
