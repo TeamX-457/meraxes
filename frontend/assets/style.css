@@ -1,0 +1,140 @@
+/* Custom Fonts setup*/
+/* Do not touch!!!!!!!! */
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/canela/fonnts.com-Canela-Black.ttf");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/canela/fonnts.com-Canela-Medium.ttf");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/canela/fonnts.com-Canela-Regular.ttf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/canela/fonnts.com-Canela-Thin.ttf");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Bold.otf");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-BoldItalic.otf");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Italic.otf");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Light.otf");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-LightItalic.otf");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Medium.otf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-MediumItalic.otf");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Regular.otf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+i {
+  opacity: 30%;
+}
+
+.nav-item {
+  position: relative;
+  transition: background 0.15s;
+}
+
+.nav-item:hover .nav-label {
+  opacity: 1;
+}
+.nav-item:hover .nav-icon-wrap {
+  color: rgba(231, 233, 234, 0.7);
+}
+
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 18px;
+  width: 2px;
+  background: #1e9df1;
+  border-radius: 0 2px 2px 0;
+}
+
+.nav-item.active .nav-label {
+  color: var(--color-foreground);
+  opacity: 1;
+}
+.nav-item.active .nav-icon-wrap {
+  color: var(--color-primary);
+}
+
+.nav-icon-wrap {
+  color: rgba(231, 233, 234, 0.25);
+  transition: color 0.15s;
+}
+
+.nav-label {
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+.user-row {
+  transition: background 0.15s;
+}
+.user-row:hover {
+  background: color-mix(in srgb, var(--color-foreground) 4%, transparent);
+}
