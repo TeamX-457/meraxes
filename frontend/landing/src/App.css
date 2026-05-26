@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+        --color-primary: #1e9df1;
+        --color-primary-foreground: #ffffff;
+        --color-secondary: #0f1419;
+        --color-secondary-foreground: #ffffff;
+        --color-accent-background: #e3ecf6;
+        --color-accent-foreground: #1e9df1;
+        --color-foreground: #000000;
+        --color-background: #e7e9ea;
+        --font-heading: "Canela", "Instrument Serif";
+        --font-body: "Neue-Montreal", "Inter";
+      }
+
+      .dark {
+        --color-background: #000000;
+        --color-foreground: #e7e9ea;
+        --color-primary: #1c9cf0;
+        --color-accent-background: #061622;
+        --color--accent-foreground: #1c9cf0;
+        --color-primary-foreground: #ffffff;
+        --color-secondary: #f0f3f4;
+        --color-secondary-foreground: #0f1419;
+        --font-heading: "Canela", "Instrument Serif";
+        --font-body: "Inter";
+      }

@@ -7,7 +7,7 @@ export default function Card({ items }) {
         return (
           <div
             key={item.id}
-            className="group rounded-[2rem] border border-white/65 bg-white/72 p-7 shadow-[0_18px_40px_rgba(15,23,42,0.07)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_65px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-white/6"
+            className="group rounded-4xl border border-white/65 bg-white/72 p-7 shadow-[0_18px_40px_rgba(15,23,42,0.07)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:shadow-[0_28px_65px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-white/6"
           >
             <div className="mb-16 flex h-12 w-12 items-center justify-center rounded-2xl bg-secondary text-secondary-foreground shadow-lg shadow-black/10 dark:bg-white dark:text-slate-950">
               <IconComponent size={20} strokeWidth={2} />

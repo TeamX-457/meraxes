@@ -123,7 +123,7 @@
   --color-secondary: #eef4ff;
   --color-secondary-foreground: #08111f;
   --font-heading: "Canela", "Instrument Serif";
-  --font-body: "Neue-Montreal", "Inter";
+  -font-body: "Neue-Montreal", "Inter";
 }
 
 @layer base {
