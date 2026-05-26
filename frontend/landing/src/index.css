@@ -1,25 +1,156 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/canela/fonnts.com-Canela-Black.ttf");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/canela/fonnts.com-Canela-Medium.ttf");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/canela/fonnts.com-Canela-Regular.ttf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Canela";
+  src: url("/fonts/canela/fonnts.com-Canela-Thin.ttf");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Bold.otf");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-BoldItalic.otf");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Italic.otf");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Light.otf");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-LightItalic.otf");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Medium.otf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-MediumItalic.otf");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Neue-Montreal";
+  src: url("/fonts/neue-montreal/NeueMontreal-Regular.otf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --color-primary: #1e9df1;
+  --color-primary: #2563eb;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #0f1419;
+  --color-secondary: #0f172a;
   --color-secondary-foreground: #ffffff;
-  --color-accent-background: #e3ecf6;
-  --color-accent-foreground: #1e9df1;
-  --color-foreground: #000000;
-  --color-background: #e7e9ea;
+  --color-accent-background: #eef4fb;
+  --color-accent-foreground: #2563eb;
+  --color-foreground: #0f172a;
+  --color-background: #edf3f8;
   --font-heading: "Canela", "Instrument Serif";
   --font-body: "Neue-Montreal", "Inter";
 }
 
 .dark {
-  --color-background: #000000;
-  --color-foreground: #e7e9ea;
-  --color-primary: #1c9cf0;
-  --color-accent-background: #061622;
-  --color--accent-foreground: #1c9cf0;
+  --color-background: #08111f;
+  --color-foreground: #ecf3ff;
+  --color-primary: #5ab1ff;
+  --color-accent-background: #0c1a2a;
+  --color-accent-foreground: #5ab1ff;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #f0f3f4;
-  --color-secondary-foreground: #0f1419;
+  --color-secondary: #eef4ff;
+  --color-secondary-foreground: #08111f;
   --font-heading: "Canela", "Instrument Serif";
-  --font-body: "Inter";
+  --font-body: "Neue-Montreal", "Inter";
+}
+
+@layer base {
+  * {
+    @apply box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-background text-foreground antialiased;
+    background-image:
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.45), transparent 18rem),
+      radial-gradient(circle at top, rgba(37, 99, 235, 0.12), transparent 28rem);
+    font-family: var(--font-body);
+  }
+
+  .dark body {
+    background-image:
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04), transparent 18rem),
+      radial-gradient(circle at top, rgba(90, 177, 255, 0.12), transparent 28rem);
+  }
+
+  a,
+  button {
+    @apply transition-colors duration-200;
+  }
 }
