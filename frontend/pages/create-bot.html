@@ -23,7 +23,7 @@
 
     <!-- Tailwind configuration -->
     <!-- Please do not touch!!!! -->
-    <style type="text/tailwindcss">
+    <<style type="text/tailwindcss">
       @theme {
         --color-primary: #1e9df1;
         --color-primary-foreground: #ffffff;
@@ -59,8 +59,9 @@
     <main class="bg-secondary-foreground min-w-full h-full">
       <!-- Page content goes here -->
       <section>
-        <div>
-            <h1>Create a bot</h1>
+
+        <div class=" m-7">
+            <h1 class=" text-bold text-primary">Create a bot</h1>
             <p>Pick a template, choose a model, and we'll train it locally.</p>
         </div>
 
@@ -72,6 +73,22 @@
         <div>
             <h1>AI model type</h1>
             <p>How the bot decides what to reply. </p>
+
+            <div>
+              <h1>Instant Classifier</h1>
+              <p>Fast neural model for structured support. </p>
+            </div>
+
+            <div>
+              <h1>FAQ Matcher</h1>
+              <p>Semantic similarity over your Q&A.</p>
+            </div>
+
+            <div>
+              <h1>Hybrid <br>
+              (Recommended) </h1>
+              <p>FAQ first, then intent fallback. </p>
+            </div>
         </div>
 
     </section>
