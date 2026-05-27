@@ -1,11 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meraxes</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/frontend/assets/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Tailwind configuration -->
+    <!-- Please do not touch!!!! -->
+    <style type="text/tailwindcss">
+      @theme {
+        --color-primary: #1e9df1;
+        --color-primary-foreground: #ffffff;
+        --color-secondary: #0f1419;
+        --color-secondary-foreground: #ffffff;
+        --color-accent-background: #e3ecf6;
+        --color-accent-foreground: #1e9df1;
+        --color-foreground: #000000;
+        --color-background: #e7e9ea;
+        --font-heading: "Canela", "Instrument Serif";
+        --font-body: "Neue-Montreal", "Inter";
+      }
+
+      .dark {
+        --color-background: #000000;
+        --color-foreground: #e7e9ea;
+        --color-primary: #1c9cf0;
+        --color-accent-background: #061622;
+        --color--accent-foreground: #1c9cf0;
+        --color-primary-foreground: #ffffff;
+        --color-secondary: #f0f3f4;
+        --color-secondary-foreground: #0f1419;
+        --font-heading: "Canela", "Instrument Serif";
+        --font-body: "Inter";
+      }
+    </style>
+  </head>
   <body>
-    <h1>Work in this folder and delete me!</h1>
+    <!--
+      Only put page-specific content here.
+      The layout (aside + header) is injected by layout.js.
+    -->
+    <main class="bg-secondary-foreground pt-[12rem] px-6 h-full"></main>
+
+    <script src="/frontend/assets/index.js"></script>
+    <script type="module">
+      import { renderLayout } from "/frontend/assets/layout.js";
+
+      renderLayout({
+        title: "Chatbot Platform",
+        subtitle: "Embed on any website",
+        activeNav: "my-bots", // matches the `id` in layout.js NAV_ITEMS
+      });
+    </script>
   </body>
 </html>

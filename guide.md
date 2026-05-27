@@ -1,0 +1,1 @@
+## Once you pull from main, copy the boilerplate from index.html and paste in your own html file
