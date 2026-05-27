@@ -23,7 +23,7 @@
 
     <!-- Tailwind configuration -->
     <!-- Please do not touch!!!! -->
-    <<style type="text/tailwindcss">
+    <style type="text/tailwindcss">
       @theme {
         --color-primary: #1e9df1;
         --color-primary-foreground: #ffffff;
@@ -60,21 +60,23 @@
       <!-- Page content goes here -->
       <section>
 
-        <div class=" m-7">
-            <h1 class=" text-bold text-primary">Create a bot</h1>
-            <p>Pick a template, choose a model, and we'll train it locally.</p>
+        <div class=" m-7 pb-6">
+            <h1 class=" text-4xl text-primary-foreground">Create a bot</h1>
+            <p class=" text-foreground text-lg ">Pick a template, choose a model, and we'll train it locally.</p>
         </div>
 
-        <div>
-            <p>Bot name</p>
-            <input placeholder="Acne Support Bot">
+        <div class=" m-7 p-7 bg-accent-background border-primary border-2 rounded-xl">
+          <p class=" text-primary-foreground">Bot name</p>
+           <div class="rounded-md border-2 rounded-xl border-solid border-primary p-2 w-4/5 ">
+             <input class="text-foreground outline-none" placeholder="Acne Support Bot">
+           </div>
         </div>
 
-        <div>
-            <h1>AI model type</h1>
-            <p>How the bot decides what to reply. </p>
+        <div class=" m-7 p-7 bg-accent-background border-primary border-2 rounded-xl">
+            <h1 class="text-primary-foreground text-3xl">AI model type</h1>
+            <p class=" text-foreground text-lg ">How the bot decides what to reply. </p>
 
-            <div>
+            <div class=" mt-5 border" >
               <h1>Instant Classifier</h1>
               <p>Fast neural model for structured support. </p>
             </div>
