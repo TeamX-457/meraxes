@@ -3,8 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image studio</title>
+    <title>Meraxes</title>
     <script src="https://unpkg.com/lucide@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -18,11 +20,9 @@
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+    <link rel="stylesheet" href="/frontend/assets/style.css" />
     <!-- Tailwind configuration -->
-    <!-- Please do not touch!!!! -->
     <style type="text/tailwindcss">
       @theme {
         --color-primary: #1e9df1;
@@ -51,93 +51,30 @@
       }
     </style>
   </head>
-  <body class="bg-accent-background antialiased">
-    <div class="flex">
-      <!-- Sidebar -->
-      <aside
-        class="bg-secondary-foreground h-[100dvh] border-foreground/10 w-[23%] py-4 border-r "
-      >
-        <div
-          class="text-foreground border-b border-foreground/10 items-start justify-start px-8 py-4 flex gap-2"
-        >
-          <div
-            class="bg-primary h-8 w-8 flex items-center justify-center rounded-full"
-          >
-            <i class="fa-solid fa-code text-white"></i>
-          </div>
-          <div class="flex flex-col">
-            <h1 class="font-heading text-2xl opacity-80">Meraxes</h1>
-            <p class="text-xs font-body opacity-60 tracking-widest">
-              CHATBOT PLATFORM
-            </p>
-          </div>
-        </div>
-        <!-- Navigation Links -->
-        <div class="text-foreground space-y-3 py-4">
-          <div class="mb-12 px-8">
-            <h1 class="opacity-60 tracking-wider font-heading">WORKSPACE</h1>
-            <p class="font-body opacity-60">Embed on any website</p>
-          </div>
-          <div class="flex gap-5 navlinks items-center text-lg">
-            <i class="fa-solid text-primary-foreground/30 fa-circle-nodes"></i>
-            <a href="" class="font-body opacity-60 hover:opacity-100"
-              >My bots</a
-            >
-          </div>
-          <div class="flex gap-5 navlinks items-center text-lg">
-            <i
-              data-lucide="ChartColumnDecreasing"
-              class="text-primary-foreground/30"
-            ></i>
-            <a href="" class="font-body opacity-60">Analytics</a>
-          </div>
-          <div class="flex gap-5 navlinks items-center text-lg">
-            <i data-lucide="Plus" class="text-primary-foreground"></i>
-            <a href="" class="font-body opacity-60">Create bot</a>
-          </div>
-          <div class="flex gap-5 navlinks items-center text-lg">
-            <i class="text-primary-foreground/30 fa-message"></i>
-            <a href="" class="font-body opacity-60">Customer questions</a>
-          </div>
-          <div class="flex gap-5 navlinks text-lg">
-            <i
-              data-lucide="comment"
-              class="text-primary-foreground/30 fa-comment"
-            ></i>
-            <a href="" class="font-body opacity-60">Test Chat</a>
-          </div>
-          <div class="flex gap-5 navlinks items-center text-lg">
-            <i class="text-primary-foreground/30 fa-circle-nodes"></i>
-            <a href="" class="font-body opacity-60">Embed on website</a>
-          </div>
-          <div class="flex gap-5 navlinks items-center text-lg">
-            <i data-lucide="camera" class="text-primary-foreground/30"></i>
-            <a href="" class="font-body opacity-60">Image Studio</a>
-          </div>
-        </div>
-        <div></div>
-      </aside>
-
-      <div><section class="bg-[#050C18] text-white overflow-x-hidden">
-  <main class="px-4 sm:px-6 lg:px-8 py-6">
-    <header class="grid gap-6 lg:grid-cols-[1fr_auto] items-start mb-8">
+  <body>
+    <!--
+      Only put page-specific content here.
+      The layout (aside + header) is injected by layout.js.
+    -->
+    <main class="bg-secondary-foreground pt-[12rem] px-6 h-full">
+      <header class="grid gap-6 lg:grid-cols-[1fr_auto] items-start mb-8">
 
       <div class="grid gap-2">
-        <p class="text-[12px] sm:text-sm tracking-[0.25em] uppercase text-cyan-300 font-medium">
+        <p class="text-[12px] sm:text-sm uppercase text-cyan-300 font-medium font-heading" >
           Designer Studio
         </p>
 
-        <h1 class="text-[42px] sm:text-[56px] lg:text-[68px] leading-none font-black tracking-tight">
+        <h1 class="text-[42px] sm:text-[56px] font-body lg:text-[68px] leading-none font-black tracking-tight text-foreground">
           Image generator
         </h1>
 
-        <p class="text-gray-400 text-sm sm:text-base max-w-[650px]">
+        <p class="text-gray-400 text-sm sm:text-base max-w-[650px] font-body">
           Visual exploration deck. Prompt → composition → export.
         </p>
 
       </div>
      
-      <div class="flex items-center gap-2 text-cyan-200 lg:mt-2">
+      <div class="flex items-center gap-2 text-cyan-200 lg:mt-2 ">
 
         <i data-lucide="sparkles" class="w-5 h-5"></i>
         <span class="text-sm font-medium">
@@ -152,45 +89,40 @@
     
       <div class="grid gap-5 h-fit">
         
-        <div class="grid gap-5 bg-[#0B1220] border border-white/5 rounded-[32px] p-5 lg:p-6 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+        <div class="grid gap-5 bg-secondary-foreground border border-white/5 rounded-[32px] p-5 lg:p-6 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
 
-          <h2 class="text-sm uppercase tracking-[0.2em] text-gray-400">
+          <h2 class="text-sm uppercase tracking-[0.2em] text-accent-foreground">
             Prompt
           </h2>
           <!-- INPUT -->
-          <div class="grid bg-[#0A101C] border border-white/10 rounded-[28px] p-5 min-h-[140px]">
-
-            <p class="text-[18px] sm:text-[20px] leading-relaxed text-gray-200">
-              A futuristic chatbot avatar, editorial lighting,
-              glass material
-            </p>
-
-          </div>
+          <input class="bg-background border border-white/10 rounded-[28px] min-h-[140px] outline-primary" placeholder=" A futuristic chatbot avatar, editorial lighting,
+              glass material">
+          </input>
 
           <!-- TAGS -->
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 [&>button]:bg-primary [&>button]:text-white">
 
-            <button class="grid place-items-center py-2 rounded-full bg-[#111827] text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
+            <button class="grid place-items-center py-2 rounded-full text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
               + soft light
             </button>
 
-            <button class="grid place-items-center py-2 rounded-full bg-[#111827] text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
+            <button class="grid place-items-center py-2 rounded-full text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
               + minimal
             </button>
 
-            <button class="grid place-items-center py-2 rounded-full bg-[#111827] text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
+            <button class="grid place-items-center py-2 rounded-full text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
               + 3d render
             </button>
 
-            <button class="grid place-items-center py-2 rounded-full bg-[#111827] text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
+            <button class="grid place-items-center py-2 rounded-full  text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
               + studio shot
             </button>
 
-            <button class="grid place-items-center py-2 rounded-full bg-[#111827] text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
+            <button class="grid place-items-center py-2 rounded-full  text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
               + abstract
             </button>
 
-            <button class="grid place-items-center py-2 rounded-full bg-[#111827] text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
+            <button class="grid place-items-center py-2 rounded-full  text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
               + ink wash
             </button>
 
@@ -199,30 +131,30 @@
         </div>
 
         <!-- STYLE -->
-        <div class="grid gap-6 bg-[#0B1220] border border-white/5 rounded-[32px] p-5 lg:p-6 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+        <div class="grid gap-6 bg-secondary-foreground border border-white/5 rounded-[32px] p-5 lg:p-6 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
 
           <!-- TITLE -->
           <div class="grid grid-cols-[24px_1fr] items-center gap-3">
 
-            <div class="grid place-items-center w-6 h-6 rounded-full border border-cyan-400">
+            <div class="grid place-items-center w-6 h-6 rounded-full border border-primary">
 
               <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
 
             </div>
 
-            <h2 class="text-[22px] font-semibold">
+            <h2 class="text-[22px] text-foreground font-semibold">
               Style
             </h2>
 
           </div>
 
           <!-- STYLE GRID -->
-          <div class="grid sm:grid-cols-2 gap-4">
+          <div class="grid sm:grid-cols-2 gap-4 [&>div>h3]:text-foreground">
 
             <!-- ACTIVE -->
-            <div class="grid gap-1 border border-cyan-400 rounded-[24px] p-5 bg-[#0D1627] shadow-[0_0_0_1px_rgba(34,211,238,0.2)] hover:scale-[1.01] transition">
+            <div class="grid gap-1 border border-cyan-400 rounded-[24px] p-5 bg-accent-background shadow-[0_0_0_1px_rgba(34,211,238,0.2)] hover:scale-[1.01] transition">
 
-              <h3 class="text-lg font-semibold">
+              <h3 class="text-lg text-foreground font-semibold">
                 Editorial
               </h3>
 
@@ -297,20 +229,20 @@
         </div>
 
         <!-- ===SETTINGS=== -->
-        <div class="grid gap-6 bg-[#0B1220] border border-white/5 rounded-[32px] p-5 lg:p-6 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+        <div class="grid gap-6 bg-secondary-foreground border border-white/5 rounded-[32px] p-5 lg:p-6 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
 
-          <h2 class="text-[22px] font-semibold">
+          <h2 class="text-[22px] text-foreground  font-semibold">
             Aspect ratio
           </h2>
 
           
-          <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
+          <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 [&>button]:bg-accent-background [&>button]:text-foreground">
 
-            <button class="grid place-items-center py-2 rounded-2xl bg-cyan-500/10 border border-cyan-400 text-cyan-300"> 1:1</button>
-            <button class="grid place-items-center py-2 rounded-2xl bg-[#111827] border border-white/5">16:9</button>
-            <button class="grid place-items-center py-2 rounded-2xl bg-[#111827] border border-white/5">9:16 </button>
+            <button class="grid place-items-center py-2 rounded-2xl  border border-cyan-400 text-cyan-300"> 1:1</button>
+            <button class="grid place-items-center py-2 rounded-2xl  border border-white/5">16:9</button>
+            <button class="grid place-items-center py-2 rounded-2xl  border border-white/5">9:16 </button>
             <button class="grid place-items-center py-2 rounded-2xl bg-[#111827] border border-white/5"> 4:3</button>
-            <button class="grid place-items-center py-2 rounded-2xl bg-[#111827] border border-white/5">  3:4</button>
+            <button class="grid place-items-center py-2 rounded-2xl  border border-white/5">  3:4</button>
 
           </div>
 
@@ -320,19 +252,19 @@
             <!-- CREATIVITY -->
             <div class="grid gap-3">
 
-              <div class="grid grid-cols-[1fr_auto] items-center">
+              <div class="grid grid-cols-[1fr_auto] [&>p]:text-foreground" items-center">
 
-                <p class="text-gray-300">
+                <p class="text-foreground">
                   Creativity
                 </p>
 
-                <p class="text-cyan-400 font-medium">
-                  65
+                <p class="text-primary font-medium" style="color: var(--color-primary);" id="creativity-value">
+                  
                 </p>
 
               </div>
 
-              <input type="range" class="w-full accent-cyan-400"/>
+              <input type="range" class="w-full accent-primary" value="50" min="0" max="100" id="creativity-slider"  />
 
             </div>
 
@@ -341,17 +273,18 @@
 
               <div class="grid grid-cols-[1fr_auto] items-center">
 
-                <p class="text-gray-300">
+                <p class="text-foreground">
                   Variations
                 </p>
 
-                <p class="text-cyan-400 font-medium">
-                  4
+                <p class="text-primary font-medium" id="variations-value">
+                  
+                  
                 </p>
 
               </div>
 
-              <input type="range" class="w-full accent-cyan-400"/>
+              <input type="range" class="w-full accent-primary" value="50" min="0" max="100" id="variations-slider"/>
 
             </div>
 
@@ -360,7 +293,7 @@
         </div>
 
       
-        <button class="grid place-items-center w-full py-5 rounded-full bg-cyan-400 hover:bg-cyan-300 transition-all duration-300 text-black text-lg font-semibold shadow-[0_10px_30px_rgba(6,182,212,0.35)] hover:scale-[1.01]">
+        <button class="grid place-items-center w-full py-5 rounded-full bg-primary hover:bg-primary/80 transition-all duration-300 text-black text-lg font-semibold shadow-[0_10px_30px_rgba(6,182,212,0.35)] hover:scale-[1.01]">
 
           <div class="flex items-center gap-2">
 
@@ -375,25 +308,25 @@
       </div>
 
    
-      <div class="grid place-items-center bg-[#0A101C] border border-white/5 rounded-[40px] min-h-[500px] shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+      <div class="grid place-items-center bg-secondary-foreground border border-white/5 rounded-[40px] min-h-[500px] shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
 
         <div class="grid place-items-center gap-5 text-gray-500 text-center p-8">
 
           <!-- ICON -->
           <div class="grid place-items-center w-24 h-24 rounded-[28px] border border-white/10 bg-white/[0.02]">
 
-            <i data-lucide="image" class="w-12 h-12"></i>
+            <i data-lucide="image" class="w-12 h-12 text-foreground"></i>
 
           </div>
 
           <!-- TEXT -->
-          <div class="grid gap-2">
+          <div class="grid gap-2 text-foreground">
 
-            <p class="text-2xl font-medium text-gray-300">
+            <p class="text-2xl text-foreground font-medium">
               Your generations will appear here
             </p>
 
-            <span class="text-sm text-gray-500">
+            <span class="text-sm">
               Generate stunning AI visuals in seconds
             </span>
 
@@ -401,17 +334,35 @@
         </div>
       </div>
     </section>
-  </main>
-  <script>
-    lucide.createIcons();
-  </script>
+    </main>
 
-</section></div>
-    </div>
-    <script src="index.js"></script>
-    <script>
-      lucide.createIcons();
+    <script src="/frontend/assets/index.js"></script>
+    <script type="module">
+      import { renderLayout } from "/frontend/assets/layout.js";
+
+      renderLayout({
+        title: "Chatbot Platform",
+        subtitle: "Embed on any website",
+        activeNav: "my-bots", // matches the `id` in layout.js NAV_ITEMS
+      });
     </script>
+    <script>
+      const creativitySlider = document.getElementById("creativity-slider");
+      const creativityValue = document.getElementById("creativity-value");
+
+      const variationSlider = document.getElementById("variations-slider");
+      const variationValue = document.getElementById("variations-value");
+
+      creativitySlider.addEventListener("input", (e) => {
+        creativityValue.textContent = e.target.value;
+      });
+
+      variationSlider.addEventListener("input", (e) => {
+        variationValue.textContent = e.target.value;
+      });
+
+
+      </script>
   </body>
 </html>
 

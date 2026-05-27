@@ -96,7 +96,7 @@ export function renderLayout({
 
   wrapper.innerHTML = `
     <!-- ASIDE / SIDEBAR -->
-    <aside class="border-foreground/10 flex bg-accent-background text-[color:var(--color-foreground)] lg:h-[100dvh] lg:w-[23%] lg:min-w-[300px] flex-col border-r backdrop-blur-sm">
+    <aside class="border-foreground/10 flex fixed bg-accent-background text-foreground lg:h-[100dvh] lg:w-[23%] lg:min-w-[300px] flex-col border-r backdrop-blur-sm">
       <!-- Logo -->
       <div class="flex items-center gap-3 border-b border-foreground/10 px-8 py-5">
         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary shadow-[0_12px_25px_rgba(30,157,241,0.32)]">
@@ -131,16 +131,16 @@ export function renderLayout({
     </aside>
 
     <!-- MAIN COLUMN -->
-    <div class="flex flex-col lg:w-[77%]" id="page-column">
+    <div class="flex flex-col lg:w-[77%] ml-[23%]" id="page-column">
       <!-- HEADER / TOPBAR -->
-      <header class="flex justify-between px-4 pb-4 pt-8">
+      <header class="flex justify-between fixed w-full bg-accent-background pl-8 pb-4 pt-8">
         <div>
           <h1 class="font-heading text-5xl text-foreground" id="layout-title">${title}</h1>
           <p class="font-body opacity-60 text-foreground" id="layout-subtitle">${subtitle}</p>
         </div>
       </header>
       <!-- Page content slot -->
-      <div id="layout-content-slot"></div>
+      <div id="layout-content-slot" class="p-20"></div>
     </div>
   `;
 
