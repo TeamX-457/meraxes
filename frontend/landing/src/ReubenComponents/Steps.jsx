@@ -32,10 +32,10 @@ const Steps = () => {
         {instructions.map((instruction) => (
           <div
             key={instruction.id}
-            className="w-full h-60 text-primary grid justify-between rounded-xl p-5 outline bg-white/72 dark:bg-white/6"
+            className="w-full h-60 text-primary grid  justify-between rounded-xl p-5 outline bg-white/72 dark:bg-white/6"
           >
             <div className="flex items-center justify-between">
-              <h1 className="text-5xl text-foreground font-body">
+              <h1 className="text-5xl font-serif text-foreground dark:text-primary">
                 {instruction.id}
               </h1>
               {}
