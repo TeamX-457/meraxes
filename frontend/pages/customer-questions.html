@@ -13,6 +13,7 @@
       referrerpolicy="no-referrer"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="/frontend/assets/customer-questions.css  " />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
@@ -56,7 +57,45 @@
       Only put page-specific content here.
       The layout (aside + header) is injected by layout.js.
     -->
-    <main class="bg-secondary-foreground pt-[12rem] px-6 h-full"></main>
+    <main class="bg-secondary-foreground pt-[12rem] px-6 h-full">
+      <div class="content">
+        <div class="soph">
+          <h2>Customer Questions</h2>
+          <p class="soph2">Add custom Q&A and retain immediately</p>
+        </div>
+        <div class="card">
+          <div class="chatbot-container">
+            <h2 class="section-title"></h2>
+            <div class="dropdown">
+              <label>Bot</label>
+              <div class="custom-select">
+                <select id="bot-select">
+                  <option value="">Select a bot</option>
+                  <option value="main-bot">Main Customer Bot</option>
+                  <option value="sale-bot">Sales Bot</option>
+                  <option value="support-bot">Technical Support Bot</option>
+                  <option value="faq-bot">Faq-bot</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="form-group">
+            <label>Custom Question</label>
+          </div>
+          <input type="text" placeholder="What are your business hours?" />
+          <label style="padding: 12px">Your Answer</label>
+          <textarea
+            row="5"
+            placeholder="We are open Mon-Fri 9am to 6pm"
+          ></textarea>
+          <div class="button-wrap"><button>Add dataset & retrain</button></div>
+        </div>
+        <div class="form-group"></div>
+      </div>
+    </main>
 
     <script src="/frontend/assets/index.js"></script>
     <script type="module">
