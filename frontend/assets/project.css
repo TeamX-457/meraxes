@@ -1,0 +1,196 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ font-family: Canela;
+}
+@font-face {
+  font-family: Canela;
+  src: url('./fonts/canela/fonnts.com-Canela-Black.ttf');
+}
+.body {
+  height: 50vh;
+  display: flex;
+  padding-right: 20px;
+  align-items: flex;
+  justify-content: flex;
+  background: radial-gradient(circle at the top left,#0f172a,#020617); 
+  color: white;
+  
+  
+}
+.body::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(#1e293b 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.3;
+}
+.container {
+  position: relative;
+  z-index: 50; /* IMPORTANT: puts it above animation */
+  display: flex;
+ 
+  align-items: flex;
+  justify-content: flex;
+  height: 100vh;
+  color: white;
+}
+.sign-in-btn {
+  margin-top: 20px;
+  padding:  10px 100px;
+  border: none;
+  background: rgb(86, 86, 239);
+  color: white;
+  font-size: 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.sign-in-btn:hover {
+  background: rgb(73, 62, 230);
+  color: black;
+  box-shadow: 0 0 50px rgb(26, 33, 33);
+}
+.card {
+  /* padding: 300px; */
+  width: 350px;
+  border-radius: 10px;
+
+  background: rgba(6, 6, 6, 0.5);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.card h2 {
+  margin-bottom: 10px;
+}
+.card p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #cbd5f5;
+}
+input {
+  width: 100%;
+  padding-bottom: right;
+  margin: 8px 0 15px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+.side-text{
+  color: #cbd5f5;
+}
+.side-text a {
+  text-decoration: none;
+  transition: 0.5s;
+}
+.side-text a:hover {
+color: #0f3471;
+}
+.intro-line {
+  position: absolute;
+  width: 2px;
+  background: cyan;
+  animation: fall 2s linear infinite;
+}
+.section1{
+  width: 50%;
+ background-color: #0f172a;  height: 100vh;
+}
+.section2{
+  width: 50%;
+  /* outline: 1px solid green; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes fall {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100vh); }
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #09090F; overflow: hidden; height: 100vh; }
+
+#introLines {
+  position: fixed; inset: 0;
+  overflow: hidden; pointer-events: none; opacity: 0.18;
+}
+
+.intro-line {
+  position: absolute; width: 1px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0.8) 80%, rgba(255,255,255,0) 100%);
+  animation: lineAppear 1.5s ease-out forwards;
+}
+.intro-line.from-bottom {
+  background: linear-gradient(to top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0.8) 80%, rgba(255,255,255,0) 100%);
+}
+@keyframes lineAppear {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.intro-drop {
+  position: absolute; width: 8px; height: 8px;
+  background: rgba(255,255,255,0.9); border-radius: 50%;
+  left: 50%; transform: translateX(-50%); filter: blur(0.5px);
+}
+.intro-drop::before {
+  content: ''; position: absolute; width: 2px; height: 12px;
+  left: 50%; transform: translateX(-50%);
+}
+.intro-drop.drop-down::before { top: -12px; background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0)); }
+.intro-drop.drop-up::before   { bottom: -12px; background: linear-gradient(to top, rgba(255,255,255,0.9), rgba(255,255,255,0)); }
+.intro-drop.drop-down { animation: dropMoveDown var(--duration) linear infinite; animation-delay: var(--delay); }
+.intro-drop.drop-up   { animation: dropMoveUp   var(--duration) linear infinite; animation-delay: var(--delay); }
+
+@keyframes dropMoveDown { from { top: -20px; opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } to { top: 100%; opacity: 0; } }
+@keyframes dropMoveUp   { from { bottom: -20px; opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } to { bottom: 100%; opacity: 0; } }
+
+.intro-line-horizontal {
+  position: absolute; height: 1px;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0.8) 80%, rgba(255,255,255,0) 100%);
+  animation: lineAppear 1.5s ease-out forwards;
+}
+.intro-line-horizontal.from-right {
+  background: linear-gradient(to left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0.8) 80%, rgba(255,255,255,0) 100%);
+}
+
+.intro-drop-horizontal {
+  position: absolute; width: 8px; height: 8px;
+  background: rgba(255,255,255,0.9); border-radius: 50%;
+  top: 50%; transform: translateY(-50%); filter: blur(0.5px);
+}
+.intro-drop-horizontal::before { content: ''; position: absolute; width: 12px; height: 2px; top: 50%; transform: translateY(-50%); }
+.intro-drop-horizontal.drop-right::before { left: -12px;  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.9)); }
+.intro-drop-horizontal.drop-left::before  { right: -12px; background: linear-gradient(to left,  rgba(255,255,255,0), rgba(255,255,255,0.9)); }
+.intro-drop-horizontal.drop-right { animation: dropMoveRight var(--duration) linear infinite; animation-delay: var(--delay); }
+.intro-drop-horizontal.drop-left  { animation: dropMoveLeft  var(--duration) linear infinite; animation-delay: var(--delay); }
+
+@keyframes dropMoveRight { from { left: -20px; opacity: 0; }  5% { opacity: 1; } 95% { opacity: 1; } to { left: 100%;  opacity: 0; } }
+@keyframes dropMoveLeft  { from { right: -20px; opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } to { right: 100%; opacity: 0; } }
