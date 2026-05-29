@@ -315,7 +315,7 @@ export function renderLayout({
   `;
 
   // Wrap the body content in the new shell
-  document.body.className = " text-foreground antialiased overflow-x-hidden";
+  document.body.className = " text-foreground bg-secondary-foreground antialiased overflow-x-hidden";
   document.body.innerHTML = "";
   document.body.appendChild(wrapper);
 
