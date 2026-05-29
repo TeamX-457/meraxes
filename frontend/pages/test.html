@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meraxes</title>
     <script src="https://unpkg.com/lucide@latest"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -18,11 +20,9 @@
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/frontend/assets/style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
+    <link rel="stylesheet" href="/frontend/assets/style.css" />
     <!-- Tailwind configuration -->
-    <!-- Please do not touch!!!! -->
     <style type="text/tailwindcss">
       @theme {
         --color-primary: #1e9df1;
@@ -56,7 +56,285 @@
       Only put page-specific content here.
       The layout (aside + header) is injected by layout.js.
     -->
-    <main class="bg-secondary-foreground pt-[12rem] px-6 h-full"></main>
+    <main class="bg-secondary-foreground pt-[12rem] px-6 h-full">
+      <header class="grid gap-6 lg:grid-cols-[1fr_auto] items-start mb-8">
+
+      <div class="grid gap-2">
+        <p class="text-[12px] sm:text-sm uppercase text-cyan-300 font-medium font-heading" >
+          Designer Studio
+        </p>
+
+        <h1 class="text-[42px] sm:text-[56px] font-body lg:text-[68px] leading-none font-black tracking-tight text-foreground">
+          Image generator
+        </h1>
+
+        <p class="text-gray-400 text-sm sm:text-base max-w-[650px] font-body">
+          Visual exploration deck. Prompt → composition → export.
+        </p>
+
+      </div>
+     
+      <div class="flex items-center gap-2 text-cyan-200 lg:mt-2 ">
+
+        <i data-lucide="sparkles" class="w-5 h-5"></i>
+        <span class="text-sm font-medium">
+          Beta
+        </span>
+
+      </div>
+
+    </header>
+    <section class="grid lg:grid-cols-[420px_1fr] gap-6">
+
+    
+      <div class="grid gap-5 h-fit">
+        
+        <div class="grid gap-5 bg-secondary-foreground border border-white/5 rounded-[32px] p-5 lg:p-6 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+
+          <h2 class="text-sm uppercase tracking-[0.2em] text-accent-foreground">
+            Prompt
+          </h2>
+          <!-- INPUT -->
+          <input class="bg-background border border-white/10 rounded-[28px] min-h-[140px] outline-primary" placeholder=" A futuristic chatbot avatar, editorial lighting,
+              glass material">
+          </input>
+
+          <!-- TAGS -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 [&>button]:bg-primary [&>button]:text-white">
+
+            <button class="grid place-items-center py-2 rounded-full text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
+              + soft light
+            </button>
+
+            <button class="grid place-items-center py-2 rounded-full text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
+              + minimal
+            </button>
+
+            <button class="grid place-items-center py-2 rounded-full text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
+              + 3d render
+            </button>
+
+            <button class="grid place-items-center py-2 rounded-full  text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
+              + studio shot
+            </button>
+
+            <button class="grid place-items-center py-2 rounded-full  text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
+              + abstract
+            </button>
+
+            <button class="grid place-items-center py-2 rounded-full  text-sm text-gray-300 border border-white/5 hover:border-cyan-400/40 transition">
+              + ink wash
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- STYLE -->
+        <div class="grid gap-6 bg-secondary-foreground border border-white/5 rounded-[32px] p-5 lg:p-6 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+
+          <!-- TITLE -->
+          <div class="grid grid-cols-[24px_1fr] items-center gap-3">
+
+            <div class="grid place-items-center w-6 h-6 rounded-full border border-primary">
+
+              <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
+
+            </div>
+
+            <h2 class="text-[22px] text-foreground font-semibold">
+              Style
+            </h2>
+
+          </div>
+
+          <!-- STYLE GRID -->
+          <div class="grid sm:grid-cols-2 gap-4 [&>div>h3]:text-foreground">
+
+            <!-- ACTIVE -->
+            <div class="grid gap-1 border border-cyan-400 rounded-[24px] p-5 bg-accent-background shadow-[0_0_0_1px_rgba(34,211,238,0.2)] hover:scale-[1.01] transition">
+
+              <h3 class="text-lg text-foreground font-semibold">
+                Editorial
+              </h3>
+
+              <p class="text-gray-400 text-sm">
+                Magazine refined typography
+              </p>
+
+            </div>
+
+            <div class="grid gap-1 border border-white/10 rounded-[24px] p-5 hover:border-cyan-400/40 transition">
+
+              <h3 class="text-lg font-semibold">
+                Brutalist
+              </h3>
+
+              <p class="text-gray-400 text-sm">
+                Raw, high-contrast
+              </p>
+
+            </div>
+
+            <div class="grid gap-1 border border-white/10 rounded-[24px] p-5 hover:border-cyan-400/40 transition">
+
+              <h3 class="text-lg font-semibold">
+                Chromatic
+              </h3>
+
+              <p class="text-gray-400 text-sm">
+                Gradient color fields
+              </p>
+
+            </div>
+
+            <div class="grid gap-1 border border-white/10 rounded-[24px] p-5 hover:border-cyan-400/40 transition">
+
+              <h3 class="text-lg font-semibold">
+                Organic
+              </h3>
+
+              <p class="text-gray-400 text-sm">
+                Natural soft forms
+              </p>
+
+            </div>
+
+            <div class="grid gap-1 border border-white/10 rounded-[24px] p-5 hover:border-cyan-400/40 transition">
+
+              <h3 class="text-lg font-semibold">
+                Noir
+              </h3>
+
+              <p class="text-gray-400 text-sm">
+                Black + accent gold
+              </p>
+
+            </div>
+
+            <div class="grid gap-1 border border-white/10 rounded-[24px] p-5 hover:border-cyan-400/40 transition">
+
+              <h3 class="text-lg font-semibold">
+                Vapor
+              </h3>
+
+              <p class="text-gray-400 text-sm">
+                Y2K iridescent
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ===SETTINGS=== -->
+        <div class="grid gap-6 bg-secondary-foreground border border-white/5 rounded-[32px] p-5 lg:p-6 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+
+          <h2 class="text-[22px] text-foreground  font-semibold">
+            Aspect ratio
+          </h2>
+
+          
+          <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 [&>button]:bg-accent-background [&>button]:text-foreground">
+
+            <button class="grid place-items-center py-2 rounded-2xl  border border-cyan-400 text-cyan-300"> 1:1</button>
+            <button class="grid place-items-center py-2 rounded-2xl  border border-white/5">16:9</button>
+            <button class="grid place-items-center py-2 rounded-2xl  border border-white/5">9:16 </button>
+            <button class="grid place-items-center py-2 rounded-2xl bg-[#111827] border border-white/5"> 4:3</button>
+            <button class="grid place-items-center py-2 rounded-2xl  border border-white/5">  3:4</button>
+
+          </div>
+
+          <!-- SLIDERS -->
+          <div class="grid gap-5">
+
+            <!-- CREATIVITY -->
+            <div class="grid gap-3">
+
+              <div class="grid grid-cols-[1fr_auto] [&>p]:text-foreground" items-center">
+
+                <p class="text-foreground">
+                  Creativity
+                </p>
+
+                <p class="text-primary font-medium" style="color: var(--color-primary);" id="creativity-value">
+                  
+                </p>
+
+              </div>
+
+              <input type="range" class="w-full accent-primary" value="50" min="0" max="100" id="creativity-slider"  />
+
+            </div>
+
+            <!-- VARIATIONS -->
+            <div class="grid gap-3">
+
+              <div class="grid grid-cols-[1fr_auto] items-center">
+
+                <p class="text-foreground">
+                  Variations
+                </p>
+
+                <p class="text-primary font-medium" id="variations-value">
+                  
+                  
+                </p>
+
+              </div>
+
+              <input type="range" class="w-full accent-primary" value="50" min="0" max="100" id="variations-slider"/>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      
+        <button class="grid place-items-center w-full py-5 rounded-full bg-primary hover:bg-primary/80 transition-all duration-300 text-black text-lg font-semibold shadow-[0_10px_30px_rgba(6,182,212,0.35)] hover:scale-[1.01]">
+
+          <div class="flex items-center gap-2">
+
+            <i data-lucide="wand-sparkles" class="w-5 h-5"></i>
+
+            <span>Generate</span>
+
+          </div>
+
+        </button>
+
+      </div>
+
+   
+      <div class="grid place-items-center bg-secondary-foreground border border-white/5 rounded-[40px] min-h-[500px] shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+
+        <div class="grid place-items-center gap-5 text-gray-500 text-center p-8">
+
+          <!-- ICON -->
+          <div class="grid place-items-center w-24 h-24 rounded-[28px] border border-white/10 bg-white/[0.02]">
+
+            <i data-lucide="image" class="w-12 h-12 text-foreground"></i>
+
+          </div>
+
+          <!-- TEXT -->
+          <div class="grid gap-2 text-foreground">
+
+            <p class="text-2xl text-foreground font-medium">
+              Your generations will appear here
+            </p>
+
+            <span class="text-sm">
+              Generate stunning AI visuals in seconds
+            </span>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    </main>
 
     <script src="/frontend/assets/index.js"></script>
     <script type="module">
@@ -68,5 +346,38 @@
         activeNav: "my-bots", // matches the `id` in layout.js NAV_ITEMS
       });
     </script>
+    <script>
+      const creativitySlider = document.getElementById("creativity-slider");
+      const creativityValue = document.getElementById("creativity-value");
+
+      const variationSlider = document.getElementById("variations-slider");
+      const variationValue = document.getElementById("variations-value");
+
+      creativitySlider.addEventListener("input", (e) => {
+        creativityValue.textContent = e.target.value;
+      });
+
+      variationSlider.addEventListener("input", (e) => {
+        variationValue.textContent = e.target.value;
+      });
+
+
+      </script>
   </body>
 </html>
+
+<!-- 
+LOGO - Meraxes CHATBOT PLATFORM
+
+WORKSPACE
+-Embed on any website
+
+Navlinks
+My bots
+Analytics
+Create bot
+Customer questions
+test chat
+image studio
+Embed on website 
+-->
