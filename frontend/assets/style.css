@@ -138,3 +138,6 @@ i {
 .user-row:hover {
   background: color-mix(in srgb, var(--color-foreground) 4%, transparent);
 }
+.body{
+  color:
+}
