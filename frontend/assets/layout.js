@@ -286,28 +286,12 @@ export function renderLayout({
     </aside>
 
     <!-- MAIN COLUMN -->
-    <div class="relative flex min-w-0 min-h-screen w-full flex-col lg:pl-[var(--layout-sidebar-width)]">
-      <header class="fixed left-0 right-0 top-0 z-100 border-b border-foreground/10 bg-accent-background backdrop-blur-sm lg:left-[var(--layout-sidebar-width)] lg:right-auto lg:w-[calc(100%-var(--layout-sidebar-width))] lg:border-0">
-        <div class="flex items-center gap-4 px-4 py-4 sm:px-6 lg:hidden">
-          <button
-            type="button"
-            data-layout-open-menu
-            class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-foreground/10 bg-foreground/5 text-foreground/80 transition hover:bg-foreground/10"
-            aria-label="Open menu"
-          >
-            <i data-lucide="Menu" class="h-5 w-5"></i>
-          </button>
-          <div class="min-w-0 flex-1">
-            <h1 class="truncate font-heading text-2xl leading-none text-foreground" id="layout-title-mobile">${title}</h1>
-            <p class="mt-1 truncate font-body text-xs text-foreground/60" id="layout-subtitle-mobile">${subtitle}</p>
-          </div>
-        </div>
-
-        <div class="hidden items-end justify-between gap-6 px-8 pt-8 pb-4 lg:flex">
-          <div class="min-w-0">
-            <h1 class="font-heading text-5xl leading-none text-foreground" id="layout-title">${title}</h1>
-            <p class="mt-2 font-body text-sm text-foreground/60" id="layout-subtitle">${subtitle}</p>
-          </div>
+    <div class="flex flex-col lg:w-[77%] ml-[23%]" id="page-column">
+      <!-- HEADER / TOPBAR -->
+      <header class="flex z-50 justify-between fixed w-full bg-accent-background pl-8 pb-4 pt-8">
+        <div>
+          <h1 class="font-heading text-5xl text-foreground" id="layout-title">${title}</h1>
+          <p class="font-body opacity-60 text-foreground" id="layout-subtitle">${subtitle}</p>
         </div>
       </header>
 
