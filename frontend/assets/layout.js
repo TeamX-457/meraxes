@@ -224,7 +224,10 @@ export function renderLayout({
   }
 
   const wrapper = document.createElement("div");
-  wrapper.className = "min-h-screen overflow-x-hidden text-foreground lg:flex";
+  wrapper.className = "relative min-h-screen overflow-x-hidden text-foreground";
+  wrapper.style.setProperty("--layout-sidebar-width", "clamp(300px, 23vw, 360px)");
+  wrapper.style.setProperty("--layout-header-mobile-height", "5rem");
+  wrapper.style.setProperty("--layout-header-desktop-height", "8.5rem");
 
   wrapper.innerHTML = `
     <div
@@ -236,7 +239,7 @@ export function renderLayout({
     <!-- MOBILE / DESKTOP SIDEBAR -->
     <aside
       data-layout-drawer
-      class="fixed inset-y-0 left-0 z-50 flex w-[min(88vw,20rem)] -translate-x-full flex-col border-r border-foreground/10 bg-accent-background text-foreground shadow-[0_24px_60px_rgba(0,0,0,0.24)] transition-transform duration-300 ease-out lg:sticky lg:top-0 lg:z-auto lg:h-screen lg:w-[23%] lg:min-w-[300px] lg:max-w-[360px] lg:translate-x-0 lg:shadow-none"
+      class="fixed inset-y-0 left-0 z-50 flex w-[min(88vw,20rem)] -translate-x-full flex-col border-r border-foreground/10 bg-accent-background text-foreground shadow-[0_24px_60px_rgba(0,0,0,0.24)] transition-transform duration-300 ease-out lg:w-[var(--layout-sidebar-width)] lg:translate-x-0 lg:shadow-none"
     >
       <div class="flex items-center justify-between gap-3 border-b border-foreground/10 px-6 py-5 lg:justify-start lg:px-8">
         <div class="flex items-center gap-3">
@@ -283,8 +286,8 @@ export function renderLayout({
     </aside>
 
     <!-- MAIN COLUMN -->
-    <div class="flex min-w-0 flex-1 flex-col">
-      <header class="sticky top-0 w-full z-30 border-b border-foreground/10 bg-accent-background  backdrop-blur-sm lg:static lg:border-0">
+    <div class="relative flex min-w-0 min-h-screen w-full flex-col lg:pl-[var(--layout-sidebar-width)]">
+      <header class="fixed left-0 right-0 top-0 z-100 border-b border-foreground/10 bg-accent-background backdrop-blur-sm lg:left-[var(--layout-sidebar-width)] lg:right-auto lg:w-[calc(100%-var(--layout-sidebar-width))] lg:border-0">
         <div class="flex items-center gap-4 px-4 py-4 sm:px-6 lg:hidden">
           <button
             type="button"
@@ -308,7 +311,7 @@ export function renderLayout({
         </div>
       </header>
 
-      <div class="flex-1 px-4 pb-8 pt-4 sm:px-6 sm:pb-10 lg:px-8 lg:pb-16 lg:pt-0">
+      <div class="flex-1 px-4 pb-8 pt-[var(--layout-header-mobile-height)] sm:px-6 sm:pb-10 lg:px-8 lg:pb-16 lg:pt-[var(--layout-header-desktop-height)]">
         <div id="layout-content-slot" class="mx-auto w-full max-w-7xl"></div>
       </div>
     </div>

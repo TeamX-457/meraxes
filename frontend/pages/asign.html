@@ -1,27 +1,31 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meraxes</title>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet" />
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/frontend/assets/style.css" />
-    <link rel="stylesheet" href="assign.css">
+    <link rel="stylesheet" href="assign.css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- Tailwind configuration -->
     <!-- Please do not touch!!!! -->
     <style type="text/tailwindcss">
-        @theme {
+      @theme {
         --color-primary: #1e9df1;
         --color-primary-foreground: #ffffff;
         --color-secondary: #0f1419;
@@ -47,93 +51,135 @@
         --font-body: "Inter";
       }
     </style>
-</head>
+  </head>
 
-<body class="color-red">
+  <body class="color-red">
     <!--
       Only put page-specific content here.
       The layout (aside + header) is injected by layout.js.
     -->
     <main class="bg-secondary-foreground min-w-full h-full">
-        <div class="max-w-7*1  mx-auto p-4 md:p-8 ">
-            <!---heading--->
-            <!-----<header class="bg-[#242844]/50 p-6 -mt-10 -mx-10 pl-10 border-1 border-white/50 ">
+      <div class="max-w-7*1 mx-auto p-4 md:p-8">
+        <!---heading--->
+        <!-----<header class="bg-[#242844]/50 p-6 -mt-10 -mx-10 pl-10 border-1 border-white/50 ">
             <h1 class="text-white text-3xl font-bold">Chatbot Platform</h1>
             <h3 class="text-(#0f1419) font-bold m-0.5">Embed on any Website</h3>
         </header>---->
-            <section class="mt-8 ">
-                <h1 class="text-3xl text-white font-heading">Test Chat</h1>
-                <h3 class="text-foreground/50 font-body m-0.5">Messages saved in platform for this browser session.</h3>
-                <!---firstbox-->
-                <div
-                    class="bg-accent-background rounded-lg outline-none mt-6 border-1 border-foreground/10 py-5 px-full pl-3">
-                    <h4 class="font-body font-[300] text-foreground pb-4">Bot</h4>
-                    <div class="md:flex gap-20 lg:flex gap-20">
-                        <select
-                            class="border-1 border-foreground/10 rounded-lg px-20 text-foreground apperance:base-select">
-                            <option class="text-foreground selected bg-blue-500 ">select a bot</option>
-                        </select>
-                        <button
-                            class=" relative z-50 bg-red-50  hover:bg-red-500 border-1 border-foreground/7 font-body px-4 rounded-lg py-1 text-foreground cursor-pointer ">
-                            <div class="flex gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                                    class="size-4 mt-1 ">
-                                    <path fill-rule="evenodd"
-                                        d="M13.836 2.477a.75.75 0 0 1 .75.75v3.182a.75.75 0 0 1-.75.75h-3.182a.75.75 0 0 1 0-1.5h1.37l-.84-.841a4.5 4.5 0 0 0-7.08.932.75.75 0 0 1-1.3-.75 6 6 0 0 1 9.44-1.242l.842.84V3.227a.75.75 0 0 1 .75-.75Zm-.911 7.5A.75.75 0 0 1 13.199 11a6 6 0 0 1-9.44 1.241l-.84-.84v1.371a.75.75 0 0 1-1.5 0V9.591a.75.75 0 0 1 .75-.75H5.35a.75.75 0 0 1 0 1.5H3.98l.841.841a4.5 4.5 0 0 0 7.08-.932.75.75 0 0 1 1.025-.273Z"
-                                        clip-rule="evenodd" />
-                                </svg>Reload history
-                            </div>
-                        </button>
+        <section class="mt-8">
+          <h1 class="text-3xl text-accent-forground font-heading">Test Chat</h1>
+          <h3 class="text-foreground/50 font-body m-0.5">
+            Messages saved in platform for this browser session.
+          </h3>
+          <!---firstbox-->
+          <div
+            class="bg-accent-background rounded-lg outline-none mt-6 border-1 border-foreground/10 py-5 px-full pl-3"
+          >
+            <h4 class="font-body font-[300] text-foreground pb-4">Bot</h4>
+            <div class="md:flex gap-20 lg:flex gap-20">
+              <select
+                class="border-1 border-foreground/10 rounded-lg px-20 text-foreground apperance:base-select"
+              >
+                <option class="text-foreground selected bg-blue-500">
+                  select a bot
+                </option>
+              </select>
+              <button
+                class="relative z-50 bg-red-50 hover:bg-red-500 border-1 border-foreground/7 font-body px-4 rounded-lg py-1 text-foreground cursor-pointer"
+              >
+                <div class="flex text-black gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    class="size-4 mt-1"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M13.836 2.477a.75.75 0 0 1 .75.75v3.182a.75.75 0 0 1-.75.75h-3.182a.75.75 0 0 1 0-1.5h1.37l-.84-.841a4.5 4.5 0 0 0-7.08.932.75.75 0 0 1-1.3-.75 6 6 0 0 1 9.44-1.242l.842.84V3.227a.75.75 0 0 1 .75-.75Zm-.911 7.5A.75.75 0 0 1 13.199 11a6 6 0 0 1-9.44 1.241l-.84-.84v1.371a.75.75 0 0 1-1.5 0V9.591a.75.75 0 0 1 .75-.75H5.35a.75.75 0 0 1 0 1.5H3.98l.841.841a4.5 4.5 0 0 0 7.08-.932.75.75 0 0 1 1.025-.273Z"
+                      clip-rule="evenodd"
+                    /></svg
+                  >Reload history
+                </div>
+              </button>
 
-                        <button class="bg-red-200 hover:bg-blue-400">
-                            Click me
-                        </button>
+              <button class="bg-red-200 text-black hover:bg-blue-400">
+                Click me
+              </button>
 
-                        <button
-                            class="bg-secondary-foreground/50 border-1 border-foreground/7 font-body px-4 rounded-lg py-0 text-foreground">
-                            <div class="flex gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="size-5 mt-1">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                </svg>Clear chat
-                            </div>
-                        </button>
-                    </div>
-                    <p class="text-foreground/50 font-body pt-3">user_id test-started</p>
+              <button
+                class="bg-secondary-foreground/50 border-1 border-foreground/7 font-body px-4 rounded-lg py-0 text-foreground"
+              >
+                <div class="flex gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-5 mt-1"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                    /></svg
+                  >Clear chat
                 </div>
-                <!---second box-->
-                <div
-                    class="mt-6 h-[350px] bg-accent-background rounded-lg text-center py-50 border-1 border-foreground/10">
-                    <h5 class="text-foreground/50 font-body font-[200px]">select a bot to sart chatting</h5>
-                </div>
-                <!--input-->
-                <div
-                    class="bg-accent-background mt-6 relative pt-20 pb-4 bottom-20 rounded-b-[20px] flex  gap-5 border-1 border-foreground/10 pt-[2%]">
-                    <input type="text" placeholder="Type a message..."
-                        class="text-[#1c9cf0] w-full bg-transparent font-body border rounded-full border-1 border-foreground/10 pl-5 py-1.5 mx-3 text-foreground">
-                    <button class="px-4 mr-2 rounded-[20px] bg-blue-400 border-1 border-foreground/50 "><svg
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="white" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-                        </svg>
-                    </button>
-                </div>
-            </section>
-        </div>
+              </button>
+            </div>
+            <p class="text-foreground/50 font-body pt-3">
+              user_id test-started
+            </p>
+          </div>
+          <!---second box-->
+          <div
+            class="mt-6 h-[350px] bg-accent-background rounded-lg text-center py-50 border-1 border-foreground/10"
+          >
+            <h5 class="text-foreground/50 font-body font-[200px]">
+              select a bot to sart chatting
+            </h5>
+          </div>
+          <!--input-->
+          <div
+            class="bg-accent-background mt-6 relative pt-20 pb-4 bottom-20 rounded-b-[20px] flex gap-5 border-1 border-foreground/10 pt-[2%]"
+          >
+            <input
+              type="text"
+              placeholder="Type a message..."
+              class="text-[#1c9cf0] w-full bg-transparent font-body border rounded-full border-1 border-foreground/10 pl-5 py-1.5 mx-3 text-foreground"
+            />
+            <button
+              class="px-4 mr-2 rounded-[20px] bg-blue-400 border-1 border-foreground/50"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="white"
+                class="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+                />
+              </svg>
+            </button>
+          </div>
+        </section>
+      </div>
     </main>
 
     <script src="/frontend/assets/index.js"></script>
     <script type="module">
-        import { renderLayout } from "/frontend/assets/layout.js";
+      import { renderLayout } from "/frontend/assets/layout.js";
 
-        renderLayout({
-            title: "Chatbot Platform",
-            subtitle: "Embed on any website",
-            activeNav: "my-bots", // matches the `id` in layout.js NAV_ITEMS
-        });
+      renderLayout({
+        title: "Chatbot Platform",
+        subtitle: "Embed on any website",
+        activeNav: "my-bots", // matches the `id` in layout.js NAV_ITEMS
+      });
     </script>
-</body>
-
+  </body>
 </html>
