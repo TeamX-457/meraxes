@@ -133,7 +133,7 @@ export function renderLayout({
     <!-- MAIN COLUMN -->
     <div class="flex flex-col lg:w-[77%] ml-[23%]" id="page-column">
       <!-- HEADER / TOPBAR -->
-      <header class="flex justify-between fixed w-full bg-accent-background pl-8 pb-4 pt-8">
+      <header class="flex z-50 justify-between fixed w-full bg-accent-background pl-8 pb-4 pt-8">
         <div>
           <h1 class="font-heading text-5xl text-foreground" id="layout-title">${title}</h1>
           <p class="font-body opacity-60 text-foreground" id="layout-subtitle">${subtitle}</p>

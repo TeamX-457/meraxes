@@ -13,7 +13,6 @@
       referrerpolicy="no-referrer"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="stylesheet" href="/frontend/assets/customer-questions.css  " />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
@@ -57,43 +56,107 @@
       Only put page-specific content here.
       The layout (aside + header) is injected by layout.js.
     -->
-    <main class="bg-secondary-foreground pt-[12rem] px-6 h-full">
-      <div class="content">
-        <div class="soph">
-          <h2>Customer Questions</h2>
-          <p class="soph2">Add custom Q&A and retain immediately</p>
-        </div>
-        <div class="card">
-          <div class="chatbot-container">
-            <h2 class="section-title"></h2>
-            <div class="dropdown">
-              <label>Bot</label>
-              <div class="custom-select">
-                <select id="bot-select">
-                  <option value="">Select a bot</option>
-                  <option value="main-bot">Main Customer Bot</option>
-                  <option value="sale-bot">Sales Bot</option>
-                  <option value="support-bot">Technical Support Bot</option>
-                  <option value="faq-bot">Faq-bot</option>
-                </select>
-              </div>
+    <main class="relative p-32 z-0 min-h-full bg-transparent">
+      <div class="mx-auto w-full max-w-[1000px]">
+        <section class="mb-8 md:mb-10">
+          <h2
+            class="font-heading text-4xl leading-none tracking-[-0.04em] text-foreground sm:text-5xl md:text-[3.75rem]"
+          >
+            Customer Questions
+          </h2>
+          <p
+            class="mt-3 max-w-2xl font-body text-base leading-7 text-foreground/55 sm:text-lg"
+          >
+            Add custom Q&amp;A and retrain immediately
+          </p>
+        </section>
+
+        <section
+          class="relative z-0 mb-8 rounded-[26px] border border-foreground/10 bg-white/75 p-6 shadow-[0_24px_60px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:bg-white/6 dark:shadow-[0_24px_60px_rgba(0,0,0,0.18)] sm:p-8"
+        >
+          <div class="mb-6">
+            <p
+              class="mb-2 font-body text-xs uppercase tracking-[0.32em] text-foreground/40"
+            >
+              Workspace
+            </p>
+            <h3
+              class="font-heading text-3xl leading-tight tracking-[-0.03em] text-foreground sm:text-[2.25rem]"
+            >
+              Connect a bot
+            </h3>
+          </div>
+
+          <div class="grid gap-3">
+            <label
+              for="bot-select"
+              class="font-body text-sm font-semibold text-foreground/75"
+            >
+              Bot
+            </label>
+            <div class="relative w-full md:w-1/2">
+              <select
+                id="bot-select"
+                class="w-full appearance-none rounded-2xl border border-foreground/10 bg-accent-background/70 px-5 py-4 font-body text-sm text-foreground outline-none transition duration-200 focus:border-primary/40 focus:ring-2 focus:ring-primary/15"
+              >
+                <option value="">Select a bot</option>
+                <option value="main-bot">Main Customer Bot</option>
+                <option value="sale-bot">Sales Bot</option>
+                <option value="support-bot">Technical Support Bot</option>
+                <option value="faq-bot">Faq-bot</option>
+              </select>
+              <i
+                data-lucide="ChevronDown"
+                class="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/35"
+              ></i>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div class="faq-item">
-          <div class="form-group">
-            <label>Custom Question</label>
+        <section
+          class="rounded-[20px] border border-foreground/10 bg-white/55 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.07)] backdrop-blur-xl dark:bg-white/5 sm:p-7"
+        >
+          <div class="space-y-6">
+            <div class="grid gap-3">
+              <label
+                for="custom-question"
+                class="font-body text-sm font-semibold text-foreground/75"
+              >
+                Custom Question
+              </label>
+              <input
+                id="custom-question"
+                type="text"
+                placeholder="What are your business hours?"
+                class="w-full rounded-2xl border border-foreground/10 bg-accent-background/70 px-5 py-4 font-body text-sm text-foreground outline-none transition duration-200 placeholder:text-foreground/35 focus:border-primary/40 focus:ring-2 focus:ring-primary/15"
+              />
+            </div>
+
+            <div class="grid gap-3">
+              <label
+                for="custom-answer"
+                class="font-body text-sm font-semibold text-foreground/75"
+              >
+                Your Answer
+              </label>
+              <textarea
+                id="custom-answer"
+                rows="5"
+                placeholder="We are open Mon-Fri 9am to 6pm"
+                class="resize-none rounded-2xl border border-foreground/10 bg-accent-background/70 px-5 py-4 font-body text-sm text-foreground outline-none transition duration-200 placeholder:text-foreground/35 focus:border-primary/40 focus:ring-2 focus:ring-primary/15"
+              ></textarea>
+            </div>
+
+            <div class="flex justify-end pt-2">
+              <button
+                type="button"
+                class="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-primary to-sky-500 px-6 py-4 font-body text-sm font-semibold tracking-wide text-primary-foreground shadow-[0_18px_40px_rgba(30,157,241,0.24)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_22px_50px_rgba(30,157,241,0.28)]"
+              >
+                Add dataset &amp; retrain
+              </button>
+            </div>
           </div>
-          <input type="text" placeholder="What are your business hours?" />
-          <label style="padding: 12px">Your Answer</label>
-          <textarea
-            row="5"
-            placeholder="We are open Mon-Fri 9am to 6pm"
-          ></textarea>
-          <div class="button-wrap"><button>Add dataset & retrain</button></div>
-        </div>
-        <div class="form-group"></div>
+        </section>
       </div>
     </main>
 
