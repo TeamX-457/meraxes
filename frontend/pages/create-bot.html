@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meraxes</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/frontend/assets/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Tailwind configuration -->
+    <!-- Please do not touch!!!! -->
+    <style type="text/tailwindcss">
+      @theme {
+        --color-primary: #1e9df1;
+        --color-primary-foreground: #ffffff;
+        --color-secondary: #0f1419;
+        --color-secondary-foreground: #ffffff;
+        --color-accent-background: #e3ecf6;
+        --color-accent-foreground: #1e9df1;
+        --color-foreground: #000000;
+        --color-background: #e7e9ea;
+        --font-heading: "Canela", "Instrument Serif";
+        --font-body: "Neue-Montreal", "Inter";
+      }
+
+      .dark {
+        --color-background: #000000;
+        --color-foreground: #e7e9ea;
+        --color-primary: #1c9cf0;
+        --color-accent-background: #061622;
+        --color--accent-foreground: #1c9cf0;
+        --color-primary-foreground: #ffffff;
+        --color-secondary: #f0f3f4;
+        --color-secondary-foreground: #0f1419;
+        --font-heading: "Canela", "Instrument Serif";
+        --font-body: "Inter";
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      Only put page-specific content here.
+      The layout (aside + header) is injected by layout.js.
+    -->
+    <main class="bg-secondary-foreground min-w-full h-full">
+      <!-- Page content goes here -->
+      <section>
+        <div class="m-7 pb-6">
+          <h1 class="text-4xl text-primary-foreground">Create a bot</h1>
+          <p class="text-foreground text-lg">
+            Pick a template, choose a model, and we'll train it locally.
+          </p>
+        </div>
+
+        <div
+          class="m-7 p-7 bg-accent-background border-primary border-2 rounded-xl"
+        >
+          <p class="text-primary-foreground">Bot name</p>
+          <div
+            class="rounded-md border-2 rounded-xl border-solid border-primary p-2 w-4/5"
+          >
+            <input
+              class="text-foreground outline-none w-[100%]"
+              placeholder="Acne Support Bot"
+            />
+          </div>
+        </div>
+
+        <div
+          class="m-7 p-7 bg-accent-background border-primary border-2 rounded-xl">
+          <h1 class="text-primary-foreground text-3xl">AI model type</h1>
+          <p class="text-foreground text-lg">
+            How the bot decides what to reply.
+          </p>
+
+          <div class="flex flex-col md:flex-row gap-4 justify-between">
+            <div class="mt-5 border-primary border-2 rounded-xl p-4">
+              <h1 class="text-primary-foreground mt-4 text-2xl font-bold">Instant Classifier</h1>
+              <p class="text-foreground">
+                Fast neural model for structured support.
+              </p>
+            </div>
+
+            <div class="mt-5 border-primary border-2 rounded-xl p-4">
+              <h1 class="text-primary-foreground mt-4 text-2xl font-bold">FAQ Matcher</h1>
+              <p class="text-foreground">Semantic similarity over your Q&A.</p>
+            </div>
+
+            <div class="mt-5 border-primary border-2 rounded-xl p-4">
+              <h1 class="text-primary-foreground mt-4 text-2xl font-bold">
+                Hybrid <br />
+                (Recommended)
+              </h1>
+              <p class="text-foreground">FAQ first, then intent fallback.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/frontend/assets/index.js"></script>
+    <script type="module">
+      import { renderLayout } from "/frontend/assets/layout.js";
+
+      renderLayout({
+        title: "Chatbot Platform",
+        subtitle: "Embed on any website",
+        activeNav: "my-bots", // matches the `id` in layout.js NAV_ITEMS
+      });
+    </script>
+  </body>
+</html>
