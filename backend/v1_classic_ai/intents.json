@@ -1,0 +1,29 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["hello", "hi", "hey", "good morning", "good evening"],
+      "responses": ["Hello!", "Hi there!", "Hey "]
+    },
+    {
+      "tag": "status",
+      "patterns": ["how are you", "how are you doing", "what's up"],
+      "responses": ["I'm doing great!", "All good here "]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["bye", "goodbye", "see you", "exit"],
+      "responses": ["Bye ", "See you later!", "Goodbye!"]
+    },
+    {
+      "tag": "name",
+      "patterns": ["what is your name", "who are you"],
+      "responses": ["I'm your AI assistant "]
+    },
+    {
+      "tag": "set_name",
+      "patterns": ["my name is", "i am called"],
+      "responses": ["Nice to meet you!"]
+    }
+  ]
+}

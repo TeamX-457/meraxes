@@ -1,0 +1,116 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "hello",
+        "how do i hello",
+        "how can i hello",
+        "how to hello",
+        "what is hello"
+      ],
+      "responses": [
+        "Hello{name}! How can I help you today?",
+        "Hi there! What can I do for you?"
+      ]
+    },
+    {
+      "tag": "status",
+      "patterns": [
+        "how are you",
+        "how do i how are you",
+        "how can i how are you",
+        "how to how are you",
+        "what is how are you"
+      ],
+      "responses": [
+        "I'm doing great, thanks! How can I help?",
+        "All good \u2014 ready to answer your questions."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "thank you",
+        "how do i thank you",
+        "how can i thank you",
+        "how to thank you",
+        "what is thank you"
+      ],
+      "responses": [
+        "You're welcome! Anything else?",
+        "Happy to help \u2014 ask anytime."
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "bye",
+        "how do i bye",
+        "how can i bye",
+        "how to bye",
+        "what is bye"
+      ],
+      "responses": [
+        "Goodbye{name}! Have a wonderful day.",
+        "Thanks for chatting. Take care!"
+      ]
+    },
+    {
+      "tag": "name",
+      "patterns": [
+        "what is your name",
+        "how do i what is your name",
+        "how can i what is your name",
+        "how to what is your name",
+        "what is what is your name"
+      ],
+      "responses": [
+        "I'm your website assistant.",
+        "I'm an AI helper trained on this business."
+      ]
+    },
+    {
+      "tag": "set_name",
+      "patterns": [
+        "my name is",
+        "how do i my name is",
+        "how can i my name is",
+        "how to my name is",
+        "what is my name is"
+      ],
+      "responses": [
+        "Nice to meet you, {name}!",
+        "Got it \u2014 I'll remember you as {name}."
+      ]
+    },
+    {
+      "tag": "contact",
+      "patterns": [
+        "contact",
+        "how do i contact",
+        "how can i contact",
+        "how to contact",
+        "what is contact"
+      ],
+      "responses": [
+        "Email support or use our contact form \u2014 we reply within 24 hours.",
+        "Reach us via the Contact page or live chat."
+      ]
+    },
+    {
+      "tag": "hours",
+      "patterns": [
+        "opening hours",
+        "how do i opening hours",
+        "how can i opening hours",
+        "how to opening hours",
+        "what is opening hours"
+      ],
+      "responses": [
+        "We're open Monday\u2013Friday, 9 AM\u20136 PM.",
+        "Standard hours: 9 AM\u20136 PM weekdays."
+      ]
+    }
+  ]
+}

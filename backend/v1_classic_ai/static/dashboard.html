@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meraxes — Build & Embed Chatbots</title>
+  <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+  <link rel="shortcut icon" href="/favicon.ico?v=2" />
+  <link rel="apple-touch-icon" href="/static/favicon.svg?v=2" />
+  <meta name="theme-color" content="#0f1419" />
+  <style>
+    :root {
+      --bg: #0f1419;
+      --panel: #1a2332;
+      --border: #2d3a4f;
+      --text: #e7ecf3;
+      --muted: #8b9cb3;
+      --accent: #3b82f6;
+      --accent2: #10b981;
+      --warn: #f59e0b;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
+    header h1 { margin: 0; font-size: 1.25rem; font-weight: 600; }
+    header a { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    .layout { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 57px); }
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+    nav { border-right: 1px solid var(--border); padding: 1rem; background: var(--panel); }
+    nav button { display: block; width: 100%; text-align: left; padding: 0.65rem 0.85rem; margin-bottom: 0.35rem; border: none; border-radius: 8px; background: transparent; color: var(--text); cursor: pointer; font-size: 0.95rem; }
+    nav button:hover, nav button.active { background: var(--accent); color: #fff; }
+    main { padding: 1.25rem 1.5rem; overflow-y: auto; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    h2 { margin: 0 0 1rem; font-size: 1.1rem; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin-bottom: 1rem; }
+    label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.35rem; }
+    input, select, textarea { width: 100%; padding: 0.55rem 0.7rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text); margin-bottom: 0.75rem; font-size: 0.95rem; }
+    textarea { min-height: 80px; resize: vertical; }
+    .btn { padding: 0.55rem 1rem; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-success { background: var(--accent2); color: #fff; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 700px) { .grid2 { grid-template-columns: 1fr; } }
+    .biz-card { border: 1px solid var(--border); border-radius: 10px; padding: 0.85rem; cursor: pointer; transition: border-color 0.15s; }
+    .biz-card:hover, .biz-card.selected { border-color: var(--accent); }
+    .biz-card h3 { margin: 0 0 0.35rem; font-size: 1rem; }
+    .biz-card p { margin: 0; font-size: 0.8rem; color: var(--muted); }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
+    .tag { font-size: 0.75rem; padding: 0.2rem 0.5rem; background: var(--bg); border-radius: 6px; color: var(--muted); }
+    .agent-summary { display: flex; flex-direction: column; gap: 0.75rem; }
+    .agent-badge { display: inline-block; padding: 0.35rem 0.75rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+    .agent-badge.ok { background: rgba(16,185,129,0.15); color: var(--accent2); }
+    .agent-badge.warn { background: rgba(245,158,11,0.15); color: var(--warn); }
+    .agent-steps { list-style: none; padding: 0; margin: 0; }
+    .agent-steps li { padding: 0.4rem 0; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+    .agent-steps li::before { content: "✓"; color: var(--accent2); font-weight: bold; }
+    .dev-toggle { margin-top: 1rem; font-size: 0.8rem; color: var(--muted); cursor: pointer; user-select: none; display: block; }
+    .dev-toggle input { margin-right: 0.35rem; }
+    .dev-panel { display: none; margin-top: 0.75rem; }
+    .dev-panel.visible { display: block; }
+    pre { background: var(--bg); padding: 0.85rem; border-radius: 8px; overflow-x: auto; font-size: 0.8rem; border: 1px solid var(--border); }
+    .chat-test { display: flex; flex-direction: column; height: 420px; }
+    .chat-msgs { flex: 1; overflow-y: auto; padding: 0.75rem; background: var(--bg); border-radius: 8px; margin-bottom: 0.75rem; }
+    .msg { margin-bottom: 0.5rem; padding: 0.5rem 0.75rem; border-radius: 8px; max-width: 85%; font-size: 0.9rem; }
+    .msg.user { background: var(--accent); margin-left: auto; }
+    .msg.bot { background: var(--panel); border: 1px solid var(--border); }
+    .chat-input { display: flex; gap: 0.5rem; }
+    .chat-input input { flex: 1; margin: 0; }
+    .model-opt { border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem; margin-bottom: 0.5rem; cursor: pointer; }
+    .model-opt.selected { border-color: var(--accent); background: rgba(59,130,246,0.1); }
+    .model-opt strong { display: block; margin-bottom: 0.25rem; }
+    .model-opt span { font-size: 0.8rem; color: var(--muted); }
+    .status { font-size: 0.85rem; color: var(--accent2); margin-top: 0.5rem; }
+    ul.suggested { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: 0.85rem; }
+    ul.suggested li { margin-bottom: 0.35rem; cursor: pointer; }
+    ul.suggested li:hover { color: var(--accent); }
+    .agent-chat-layout { display: grid; grid-template-columns: 220px 1fr; gap: 1rem; min-height: 480px; }
+    @media (max-width: 700px) { .agent-chat-layout { grid-template-columns: 1fr; } }
+    .session-list { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.5rem; max-height: 480px; overflow-y: auto; }
+    .session-item { padding: 0.5rem 0.65rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; margin-bottom: 0.25rem; border: 1px solid transparent; }
+    .session-item:hover, .session-item.active { background: rgba(59,130,246,0.15); border-color: var(--accent); }
+    .session-item small { display: block; color: var(--muted); font-size: 0.7rem; margin-top: 0.15rem; }
+    .src-tag { font-size: 0.65rem; color: var(--accent2); margin-top: 0.25rem; }
+
+    /* Agent live action popup (test + training) */
+    .agent-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      display: none; align-items: center; justify-content: center; z-index: 1000;
+    }
+    .agent-modal-overlay.open { display: flex; }
+    .agent-modal {
+      background: var(--card, #1a1d24); border: 1px solid var(--border);
+      border-radius: 14px; width: min(960px, 95vw); max-height: 88vh;
+      display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    /* Split live layout: conversation on top, fixing (left) + optimization (right) below */
+    .live-grid { display: flex; flex-direction: column; gap: 0.8rem; }
+    .live-convo { max-height: 38vh; overflow-y: auto; padding-right: 0.3rem; }
+    .live-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    @media (max-width: 640px) { .live-panels { grid-template-columns: 1fr; } }
+    .live-panel { border: 1px solid var(--border); border-radius: 10px; padding: 0.6rem 0.7rem; min-height: 120px; max-height: 30vh; overflow-y: auto; }
+    .live-panel h4 { margin: 0 0 0.5rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; display: flex; align-items: center; gap: 0.4rem; }
+    .live-panel.fix h4 { color: #f59e0b; }
+    .live-panel.opt h4 { color: #60a5fa; }
+    .log-line { font-size: 0.78rem; line-height: 1.45; padding: 0.18rem 0; border-bottom: 1px dashed var(--border); animation: slidein 0.2s ease; }
+    .log-line .ts { color: var(--muted); margin-right: 0.4rem; font-variant-numeric: tabular-nums; }
+    .live-counter { display: flex; gap: 0.8rem; margin-bottom: 0.6rem; }
+    .live-counter .lc { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.3rem 0.6rem; font-size: 0.78rem; }
+    .live-counter .lc b { color: var(--accent); }
+    .agent-modal-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--border);
+    }
+    .agent-modal-head h3 { margin: 0; font-size: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .agent-modal-head .live-dot { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; animation: pulse 1.2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .agent-modal-close { background: none; border: none; color: var(--muted); font-size: 1.3rem; cursor: pointer; }
+    .agent-modal-body { padding: 1rem 1.1rem; overflow-y: auto; }
+    .agent-modal-foot { padding: 0.75rem 1.1rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--muted); }
+
+    .qa-pair { border: 1px solid var(--border); border-radius: 10px; padding: 0.6rem 0.75rem; margin-bottom: 0.6rem; animation: slidein 0.25s ease; }
+    @keyframes slidein { from{opacity:0; transform: translateY(6px)} to{opacity:1; transform:none} }
+    .qa-pair .q { font-size: 0.85rem; color: var(--accent2); margin-bottom: 0.3rem; }
+    .qa-pair .q::before { content: "Agent asks: "; color: var(--muted); }
+    .qa-pair .a { font-size: 0.88rem; line-height: 1.4; }
+    .qa-pair .a::before { content: "Bot: "; color: var(--muted); }
+    .qa-badge { display: inline-block; font-size: 0.65rem; padding: 0.1rem 0.45rem; border-radius: 20px; margin-top: 0.35rem; }
+    .qa-badge.ok { background: rgba(34,197,94,0.18); color: #4ade80; }
+    .qa-badge.fixed { background: rgba(59,130,246,0.18); color: #60a5fa; }
+    .qa-badge.fail { background: rgba(239,68,68,0.18); color: #f87171; }
+    .qa-badge.asking { background: rgba(148,163,184,0.18); color: #cbd5e1; }
+    .qa-pair .a.pending { color: var(--muted); font-style: italic; }
+
+    .train-step { display: flex; align-items: center; gap: 0.6rem; padding: 0.4rem 0; font-size: 0.85rem; border-bottom: 1px dashed var(--border); }
+    .train-step .ic { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border); flex: none; }
+    .train-step.done .ic { background: #22c55e; border-color: #22c55e; }
+    .train-step.active .ic { border-color: var(--accent); animation: pulse 1s infinite; }
+    .train-metrics { display: flex; gap: 1rem; margin-top: 0.8rem; }
+    .train-metric { flex: 1; text-align: center; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.6rem; }
+    .train-metric b { display: block; font-size: 1.3rem; color: var(--accent); }
+    .train-metric small { color: var(--muted); font-size: 0.7rem; }
+    .biz-input { width: 100%; margin-top: 0.5rem; }
+
+    /* Movable left build panel (bot creation) */
+    .create-build-panel {
+      position: fixed; left: 16px; top: 72px; width: 360px; height: 440px;
+      min-width: 260px; max-width: 560px; min-height: 180px; max-height: 88vh;
+      z-index: 1100; display: flex; flex-direction: column;
+      background: var(--card, #1a1d24); border: 1px solid var(--border);
+      border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+      overflow: hidden;
+    }
+    .create-build-panel.hidden { display: none !important; }
+    .cbp-head {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border);
+      cursor: move; user-select: none; flex: none;
+      background: rgba(0,0,0,0.15);
+    }
+    .cbp-head h4 { margin: 0; font-size: 0.88rem; flex: 1; }
+    .cbp-close { background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
+    .cbp-meta {
+      padding: 0.45rem 0.75rem; font-size: 0.72rem; color: var(--muted);
+      border-bottom: 1px solid var(--border); font-family: ui-monospace, monospace;
+      flex: none;
+    }
+    .cbp-body { flex: 1; overflow-y: auto; padding: 0.5rem 0.75rem; }
+    .cbp-foot {
+      padding: 0.5rem 0.75rem; font-size: 0.75rem; color: var(--muted);
+      border-top: 1px solid var(--border); flex: none;
+    }
+    .cbp-resize {
+      position: absolute; right: 0; bottom: 0; width: 14px; height: 14px;
+      cursor: nwse-resize; opacity: 0.35;
+    }
+    .build-line {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.72rem; line-height: 1.5; padding: 0.2rem 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.06);
+      animation: slidein 0.2s ease;
+    }
+    .build-line .ts { color: var(--muted); margin-right: 0.35rem; }
+    .build-line.phase-parse { color: #a78bfa; }
+    .build-line.phase-template { color: #60a5fa; }
+    .build-line.phase-db { color: #34d399; }
+    .build-line.phase-engine { color: #fbbf24; }
+    .build-line.phase-intents { color: #f472b6; }
+    .build-line.phase-model { color: #fb923c; }
+    .build-line.phase-session { color: #94a3b8; }
+    .build-line.phase-done { color: #4ade80; font-weight: 600; }
+    .build-line.phase-warn { color: #f59e0b; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Meraxes <span style="color:var(--muted);font-weight:400">— embed on any website</span></h1>
+    <div>
+      <a href="http://127.0.0.1:7860" target="_blank">Image Generator (SD WebUI) →</a>
+    </div>
+  </header>
+  <div class="layout">
+    <nav>
+      <button class="active" data-panel="create">Create bot</button>
+      <button data-panel="dataset">Customer questions</button>
+      <button data-panel="test">Test chat</button>
+      <button data-panel="embed">Embed on website</button>
+      <button data-panel="bots">My bots</button>
+      <button data-panel="agent">Bot Optimizer</button>
+      <button data-panel="agentchat">Agent Chat</button>
+    </nav>
+    <main>
+      <!-- CREATE -->
+      <section id="panel-create" class="panel active">
+        <h2>Create a website chatbot</h2>
+        <div class="card">
+          <label>Bot name (shown to your team)</label>
+          <input id="botName" placeholder="e.g. Acme Store Support" />
+          <label>AI model type</label>
+          <div id="modelTypes"></div>
+          <label>Business template</label>
+          <div id="businessGrid" class="grid2"></div>
+          <button class="btn btn-primary" onclick="createBot()">Create & train bot</button>
+          <p class="status" id="createStatus"></p>
+        </div>
+      </section>
+
+      <!-- DATASET -->
+      <section id="panel-dataset" class="panel">
+        <h2>Customer questions dataset</h2>
+        <p style="color:var(--muted);font-size:0.9rem;margin-top:0">Add questions your customers actually ask. These train your bot and appear as suggestions.</p>
+        <div class="card">
+          <label>Active bot</label>
+          <select id="datasetBot"></select>
+          <label>Suggested questions for this industry (click to add)</label>
+          <ul class="suggested" id="suggestedList"></ul>
+          <label>Custom question</label>
+          <input id="customQ" placeholder="What customers might type..." />
+          <label>Your answer</label>
+          <textarea id="customA" placeholder="How the bot should reply..."></textarea>
+          <button class="btn btn-success" onclick="addCustomQA()">Add to dataset & retrain</button>
+          <p class="status" id="datasetStatus"></p>
+        </div>
+      </section>
+
+      <!-- TEST -->
+      <section id="panel-test" class="panel">
+        <h2>Test your chatbot</h2>
+        <p style="color:var(--muted);font-size:0.85rem;margin:0 0 0.75rem">Messages are saved in <code>platform.db</code> for this browser session.</p>
+        <div class="card chat-test">
+          <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;flex-wrap:wrap">
+            <select id="testBot" style="flex:1;margin:0;min-width:160px"></select>
+            <button class="btn btn-outline" type="button" onclick="loadChatHistory()">Reload history</button>
+            <button class="btn btn-outline" type="button" onclick="clearChatHistory()">Clear chat</button>
+          </div>
+          <div class="chat-msgs" id="chatMsgs"></div>
+          <div class="chat-input">
+            <input id="testInput" placeholder="Type a customer message..." onkeydown="if(event.key==='Enter')sendTest()" />
+            <button class="btn btn-primary" onclick="sendTest()">Send</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- EMBED -->
+      <section id="panel-embed" class="panel">
+        <h2>Embed on your website</h2>
+        <p style="color:var(--muted);font-size:0.9rem">Copy this snippet before <code>&lt;/body&gt;</code> on your website. The widget calls <strong>this server's API</strong> (<code>POST /chat</code>) — visitors' browsers talk to your bot backend. For a live site you must host this API on a public URL (not only <code>127.0.0.1</code>) or use a tunnel (ngrok, etc.).</p>
+        <p style="color:var(--muted);font-size:0.85rem;margin-top:0.5rem">Image generator is separate: run <code>generator\START-IMAGES.bat</code> → <a href="http://127.0.0.1:7860" target="_blank">http://127.0.0.1:7860</a> (not part of the chat API).</p>
+        <div class="card">
+          <label>Bot</label>
+          <select id="embedBot" onchange="loadEmbedCode()"></select>
+          <label>Script embed (floating widget)</label>
+          <pre id="embedSnippet">Select a bot first.</pre>
+          <button class="btn btn-outline" onclick="copyEmbed()">Copy code</button>
+          <p class="status" id="embedStatus"></p>
+        </div>
+      </section>
+
+      <!-- BOTS LIST -->
+      <section id="panel-bots" class="panel">
+        <h2>My bots</h2>
+        <div id="botsList"></div>
+      </section>
+
+      <!-- AI AGENT (Track 2) -->
+      <section id="panel-agent" class="panel">
+        <h2>Bot Optimizer</h2>
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1rem">
+          Describe what you want — the agent can research topics, add new conversation areas, train your bot, and verify quality.
+        </p>
+        <div class="card">
+          <label>What should the agent do?</label>
+          <textarea id="agentGoal" placeholder="e.g. Research refunds and billing, then add intents so my bot handles those questions">Research refunds and billing policies, add intents for my SaaS bot to handle those questions</textarea>
+          <label>Business type</label>
+          <select id="agentDataset">
+            <option value="saas">SaaS</option>
+            <option value="ecommerce">E-commerce</option>
+            <option value="general">General</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="finance">Finance</option>
+          </select>
+          <label style="display:flex;align-items:center;gap:0.5rem;font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem">
+            <input type="checkbox" id="agentResearch" checked style="width:auto;margin:0" />
+            Include web research before adding topics
+          </label>
+          <button type="button" class="btn btn-primary" id="runAgentBtn" onclick="runQualityAgent()">Optimize my bot</button>
+          <p id="agentStatus" style="margin-top:0.75rem;color:var(--muted);font-size:0.85rem"></p>
+        </div>
+        <div class="card" id="agentResults" style="display:none">
+          <div id="agentUserView" class="agent-summary"></div>
+          <label class="dev-toggle">
+            <input type="checkbox" id="devModeToggle" onchange="toggleDevMode()" />
+            Developer mode (show technical details)
+          </label>
+          <div class="dev-panel" id="devPanel">
+            <pre id="agentOutput" style="white-space:pre-wrap;font-size:0.75rem;max-height:360px;overflow:auto;margin:0.5rem 0 0;background:var(--bg);padding:0.75rem;border-radius:8px;border:1px solid var(--border)"></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- AGENT CHAT (sessions + multi-source research) -->
+      <section id="panel-agentchat" class="panel">
+        <h2>Agent Chat</h2>
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1rem">
+          Chat with Meraxes using Wikipedia, web search, Gemini, and your trained bots. Create sessions and revisit past conversations.
+        </p>
+        <div class="agent-chat-layout">
+          <div>
+            <button type="button" class="btn btn-primary" style="width:100%;margin-bottom:0.5rem" onclick="newAgentChat()">+ New chat</button>
+            <div class="session-list" id="sessionList"><p style="color:var(--muted);font-size:0.8rem;padding:0.5rem">Loading…</p></div>
+          </div>
+          <div class="card" style="margin:0;display:flex;flex-direction:column;min-height:420px">
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem;align-items:center">
+              <select id="agentChatBot" style="flex:1;margin:0;min-width:140px"><option value="">No bot (research only)</option></select>
+              <select id="agentChatDataset" style="width:120px;margin:0">
+                <option value="saas">SaaS</option>
+                <option value="ecommerce">E-commerce</option>
+                <option value="general">General</option>
+              </select>
+              <label style="display:flex;align-items:center;gap:0.35rem;font-size:0.8rem;color:var(--muted);margin:0">
+                <input type="checkbox" id="agentChatResearch" checked style="width:auto;margin:0" /> Research
+              </label>
+            </div>
+            <div class="chat-msgs" id="agentChatMsgs" style="flex:1;min-height:280px"></div>
+            <div class="chat-input">
+              <input id="agentChatInput" placeholder="Ask anything — e.g. What is your refund policy?" onkeydown="if(event.key==='Enter')sendAgentChat()" />
+              <button type="button" class="btn btn-primary" onclick="sendAgentChat()">Send</button>
+            </div>
+            <p id="agentChatStatus" style="font-size:0.75rem;color:var(--muted);margin:0.5rem 0 0"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const API = window.location.origin;
+    let selectedBusiness = "general";
+    let selectedModel = "hybrid";
+    let businesses = [];
+    let bots = [];
+
+    document.querySelectorAll("nav button").forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("panel-" + btn.dataset.panel).classList.add("active");
+        if (btn.dataset.panel === "test") loadChatHistory();
+        if (btn.dataset.panel === "agentchat") initAgentChatPanel();
+      };
+    });
+
+    let agentChatSessionId = null;
+
+    function getAgentClientId() {
+      let id = localStorage.getItem("meraxes_agent_client");
+      if (!id) {
+        id = "u-" + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem("meraxes_agent_client", id);
+      }
+      return id;
+    }
+
+    function agentWelcomeHtml() {
+      return `<div class="msg bot">I'm Meraxes AI — your Copilot for this chatbot platform. I understand context, can research topics, list your bot's intents, train new ones, and help embed chat on your site. What do you need?</div>`;
+    }
+
+    async function initAgentChatPanel() {
+      refreshAgentChatBotSelect();
+      await loadAgentSessions();
+      const saved = localStorage.getItem("meraxes_agent_session");
+      if (saved) {
+        try {
+          await openAgentSession(saved, false);
+          return;
+        } catch (_) { /* session gone */ }
+      }
+      agentChatSessionId = null;
+      document.getElementById("agentChatMsgs").innerHTML = agentWelcomeHtml();
+      document.getElementById("agentChatStatus").textContent = "";
+    }
+
+    function syncAgentChatDatasetFromBot() {
+      const sel = document.getElementById("agentChatBot");
+      const ds = document.getElementById("agentChatDataset");
+      if (!sel || !ds) return;
+      const opt = sel.selectedOptions[0];
+      if (opt && opt.dataset.business) ds.value = opt.dataset.business;
+    }
+
+    function refreshAgentChatBotSelect() {
+      const sel = document.getElementById("agentChatBot");
+      if (!sel) return;
+      const prev = sel.value;
+      sel.innerHTML = '<option value="">No bot (research only)</option>' +
+        bots.map(b => `<option value="${b.bot_id}" data-business="${b.business_id}">${b.name}</option>`).join("");
+      if (prev && bots.some(b => b.bot_id === prev)) sel.value = prev;
+      else if (bots.length === 1) sel.value = bots[0].bot_id;
+      syncAgentChatDatasetFromBot();
+      sel.onchange = syncAgentChatDatasetFromBot;
+    }
+
+    async function loadAgentSessions() {
+      const el = document.getElementById("sessionList");
+      const clientId = getAgentClientId();
+      try {
+        const data = await fetch(API + "/agents/chat/sessions?client_id=" + encodeURIComponent(clientId)).then(r => r.json());
+        const sessions = data.sessions || [];
+        if (!sessions.length) {
+          el.innerHTML = '<p style="color:var(--muted);font-size:0.8rem;padding:0.5rem">No chats yet — ask a question to start</p>';
+          return;
+        }
+        el.innerHTML = sessions.map(s => `
+          <div class="session-item ${s.session_id === agentChatSessionId ? 'active' : ''}" onclick="openAgentSession('${s.session_id}')">
+            ${(s.title || 'New chat').replace(/</g, '&lt;')}
+            <small>${s.message_count || 0} messages · ${(s.updated_at || '').slice(0, 16)}</small>
+          </div>
+        `).join("");
+      } catch (e) {
+        el.innerHTML = '<p style="color:var(--warn);font-size:0.8rem">Could not load sessions</p>';
+      }
+    }
+
+    async function newAgentChat() {
+      const bot_id = document.getElementById("agentChatBot")?.value || null;
+      const dataset = document.getElementById("agentChatDataset")?.value || "saas";
+      const s = await fetch(API + "/agents/chat/sessions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bot_id: bot_id || null, dataset, client_id: getAgentClientId() }),
+      }).then(r => r.json());
+      agentChatSessionId = s.session_id;
+      localStorage.setItem("meraxes_agent_session", agentChatSessionId);
+      document.getElementById("agentChatMsgs").innerHTML = agentWelcomeHtml();
+      document.getElementById("agentChatStatus").textContent = "";
+      await loadAgentSessions();
+    }
+
+    async function openAgentSession(sessionId, save = true) {
+      agentChatSessionId = sessionId;
+      if (save) localStorage.setItem("meraxes_agent_session", sessionId);
+      const data = await fetch(API + "/agents/chat/sessions/" + sessionId).then(r => {
+        if (!r.ok) throw new Error("Session not found");
+        return r.json();
+      });
+      const box = document.getElementById("agentChatMsgs");
+      box.innerHTML = (data.messages || []).map(m =>
+        `<div class="msg ${m.role === 'user' ? 'user' : 'bot'}">${m.content.replace(/</g, '&lt;')}</div>`
+      ).join("") || agentWelcomeHtml();
+      box.scrollTop = box.scrollHeight;
+      if (data.bot_id) {
+        const sel = document.getElementById("agentChatBot");
+        if (sel) sel.value = data.bot_id;
+        const ds = document.getElementById("agentChatDataset");
+        if (ds && data.dataset) ds.value = data.dataset;
+      }
+      await loadAgentSessions();
+    }
+
+    async function ensureAgentSession() {
+      if (agentChatSessionId) return agentChatSessionId;
+      const bot_id = document.getElementById("agentChatBot")?.value || null;
+      const dataset = document.getElementById("agentChatDataset")?.value || "saas";
+      const s = await fetch(API + "/agents/chat/sessions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bot_id: bot_id || null, dataset, client_id: getAgentClientId() }),
+      }).then(r => r.json());
+      agentChatSessionId = s.session_id;
+      localStorage.setItem("meraxes_agent_session", agentChatSessionId);
+      return agentChatSessionId;
+    }
+
+    async function sendAgentChat() {
+      const input = document.getElementById("agentChatInput");
+      const msg = input.value.trim();
+      if (!msg) return;
+      await ensureAgentSession();
+      const status = document.getElementById("agentChatStatus");
+      const box = document.getElementById("agentChatMsgs");
+      const research = document.getElementById("agentChatResearch").checked;
+      const selBot = document.getElementById("agentChatBot")?.value ?? "";
+      const selDataset = document.getElementById("agentChatDataset")?.value || "saas";
+
+      box.innerHTML += `<div class="msg user">${msg.replace(/</g, '&lt;')}</div>`;
+      input.value = "";
+      const isCreate = /\b(create|make)\b.*\b(bot|chatbot)\b/i.test(msg) || /\bcreate\s+\w+\s+then\b/i.test(msg);
+      status.textContent = isCreate ? "Creating bot…" : "Thinking…";
+      box.scrollTop = box.scrollHeight;
+
+      try {
+        const res = await fetch(API + "/agents/chat/sessions/" + agentChatSessionId + "/messages", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: msg, enable_research: research, bot_id: selBot, dataset: selDataset }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Send failed");
+        const srcLine = (data.source_names || []).length
+          ? `<div class="src-tag">Sources: ${data.source_names.join(", ")} · via ${data.provider || "meraxes"}</div>`
+          : `<div class="src-tag">via ${data.provider || "meraxes"}</div>`;
+        box.innerHTML += `<div class="msg bot">${data.message.replace(/</g, '&lt;')}${srcLine}</div>`;
+        if (data.action_started && data.action_job_id) {
+          if (data.action_kind === "create") {
+            status.textContent = "Building bot… watch the left panel.";
+            openCreatePanel("Creating bot");
+            pollCreateJob(data.action_job_id, box);
+          } else {
+            const isTrain = data.action_kind === "train";
+            status.textContent = isTrain ? "Fine-tuning… watch the panel." : "Live test running…";
+            openAgentModal(data.action_kind, isTrain ? "Fine-tuning your bot" : "Testing your bot");
+            pollLiveJob(data.action_job_id, box);
+          }
+        } else if (data.created_bot_id) {
+          await load();
+          const sel = document.getElementById("agentChatBot");
+          if (sel) sel.value = data.created_bot_id;
+          syncAgentChatDatasetFromBot();
+          status.textContent = (data.plan || []).includes("create_bot")
+            ? "Bot ready — selected in the dropdown."
+            : "Bot selected in the dropdown.";
+        } else {
+          status.textContent = data.research_used ? "Answer used live research." : "";
+        }
+        await loadAgentSessions();
+      } catch (e) {
+        status.textContent = "Error: " + e.message + (isCreate ? " — is the server running on port 8005?" : "");
+      }
+      box.scrollTop = box.scrollHeight;
+    }
+
+    // ── Live action modal ──────────────────────────────────────────────
+    function openAgentModal(kind, title) {
+      const ov = document.getElementById("agentModal");
+      document.getElementById("agentModalTitle").textContent = title;
+      document.getElementById("agentModalBody").innerHTML =
+        '<p style="color:var(--muted);font-size:0.85rem">Generating business questions and starting the conversation…</p>';
+      document.getElementById("agentModalFoot").textContent =
+        "The agent is chatting with your bot, fixing weak answers and re-indexing live…";
+      ov.classList.add("open");
+    }
+    function closeAgentModal() { document.getElementById("agentModal").classList.remove("open"); }
+
+    // ── Movable left build panel (bot creation) ────────────────────────
+    let _cbpDrag = null;
+
+    function initCreatePanelDrag() {
+      const panel = document.getElementById("createBuildPanel");
+      const head = document.getElementById("createBuildDrag");
+      if (!panel || !head || head.dataset.hooked) return;
+      head.dataset.hooked = "1";
+      head.addEventListener("mousedown", (e) => {
+        if (e.target.closest(".cbp-close")) return;
+        _cbpDrag = { ox: e.clientX - panel.offsetLeft, oy: e.clientY - panel.offsetTop };
+        e.preventDefault();
+      });
+      document.addEventListener("mousemove", (e) => {
+        if (!_cbpDrag) return;
+        panel.style.left = Math.max(0, e.clientX - _cbpDrag.ox) + "px";
+        panel.style.top = Math.max(0, e.clientY - _cbpDrag.oy) + "px";
+      });
+      document.addEventListener("mouseup", () => { _cbpDrag = null; });
+      const rz = document.getElementById("createBuildResize");
+      if (rz) {
+        rz.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          const startX = e.clientX, startY = e.clientY;
+          const startW = panel.offsetWidth, startH = panel.offsetHeight;
+          const onMove = (ev) => {
+            panel.style.width = Math.max(260, startW + ev.clientX - startX) + "px";
+            panel.style.height = Math.max(180, startH + ev.clientY - startY) + "px";
+          };
+          const onUp = () => {
+            document.removeEventListener("mousemove", onMove);
+            document.removeEventListener("mouseup", onUp);
+          };
+          document.addEventListener("mousemove", onMove);
+          document.addEventListener("mouseup", onUp);
+        });
+      }
+    }
+
+    function openCreatePanel(title) {
+      const panel = document.getElementById("createBuildPanel");
+      document.getElementById("createBuildTitle").textContent = title || "Building bot";
+      document.getElementById("createBuildMeta").textContent = "pipeline: parse → template → db → engine → train";
+      document.getElementById("createBuildBody").innerHTML =
+        '<div class="build-line phase-parse"><span class="ts">--:--:--</span>Starting build pipeline…</div>';
+      document.getElementById("createBuildFoot").textContent = "Drag the header to move · drag corner to resize";
+      panel.classList.remove("hidden");
+      initCreatePanelDrag();
+    }
+
+    function closeCreatePanel() {
+      document.getElementById("createBuildPanel").classList.add("hidden");
+    }
+
+    async function pollCreateJob(jobId, box) {
+      const bodyEl = document.getElementById("createBuildBody");
+      const footEl = document.getElementById("createBuildFoot");
+      const metaEl = document.getElementById("createBuildMeta");
+      const status = document.getElementById("agentChatStatus");
+      let tries = 0;
+      const timer = setInterval(async () => {
+        tries++;
+        let job;
+        try { job = await fetch(API + "/agents/chat/jobs/" + jobId).then(r => r.json()); }
+        catch (_) { if (tries > 120) clearInterval(timer); return; }
+
+        const log = job.build_log || [];
+        bodyEl.innerHTML = log.map(l =>
+          `<div class="build-line phase-${esc(l.phase || 'info')}"><span class="ts">${esc(l.t||'')}</span>${esc(l.text)}</div>`
+        ).join("") || bodyEl.innerHTML;
+        bodyEl.scrollTop = bodyEl.scrollHeight;
+
+        metaEl.textContent = `${esc(job.bot_name || '')} · ${esc(job.business_id || '')} · ${log.length} steps · ${esc(job.status || 'running')}`;
+        footEl.textContent = job.current || job.status || "Building…";
+
+        if (job.status === "completed" || job.status === "failed") {
+          clearInterval(timer);
+          footEl.textContent = job.summary || job.error || (job.status === "failed" ? "Build failed" : "Done");
+          status.textContent = job.status === "completed" ? "Bot created." : "Build failed.";
+          if (job.created_bot_id) {
+            await load();
+            const sel = document.getElementById("agentChatBot");
+            if (sel) sel.value = job.created_bot_id;
+            syncAgentChatDatasetFromBot();
+          }
+          await refreshChatFromSession(box);
+        } else if (tries > 120) {
+          clearInterval(timer);
+          footEl.textContent = "Still building in background…";
+        }
+      }, 1500);
+    }
+
+    async function refreshChatFromSession(box) {
+      const sess = await fetch(API + "/agents/chat/sessions/" + agentChatSessionId).then(r => r.json());
+      box.innerHTML = (sess.messages || []).map(m =>
+        `<div class="msg ${m.role === 'user' ? 'user' : 'bot'}">${m.content.replace(/</g, '&lt;')}</div>`
+      ).join("");
+      box.scrollTop = box.scrollHeight;
+      await loadAgentSessions();
+    }
+
+    function esc(s) { return (s || "").replace(/</g, "&lt;"); }
+
+    // Unified live popup: conversation on top, fixing (left) + optimization (right).
+    async function pollLiveJob(jobId, box) {
+      const bodyEl = document.getElementById("agentModalBody");
+      const footEl = document.getElementById("agentModalFoot");
+      const status = document.getElementById("agentChatStatus");
+      let tries = 0;
+      const timer = setInterval(async () => {
+        tries++;
+        let job;
+        try { job = await fetch(API + "/agents/chat/jobs/" + jobId).then(r => r.json()); }
+        catch (_) { if (tries > 160) clearInterval(timer); return; }
+
+        const transcript = job.transcript || [];
+        const fixing = job.fixing_log || [];
+        const optimization = job.optimization_log || [];
+        const total = job.questions_total || transcript.length || 0;
+        const answered = transcript.filter(e => e.status === 'answered' || e.ok || e.fixed || e.status === 'weak' || e.status === 'ok').length;
+        const fixed = transcript.filter(e => e.fixed).length;
+
+        const convo = transcript.map(e => {
+          let badge = '<span class="qa-badge asking">asking…</span>';
+          let aCls = 'a pending', aTxt = 'thinking…';
+          if (e.status === 'fixing') { badge = '<span class="qa-badge fail">fixing…</span>'; aCls='a pending'; aTxt = esc(e.answer) || 'researching a better answer…'; }
+          else if (e.fixed) { badge = '<span class="qa-badge fixed">fixed by agent</span>'; aCls='a'; aTxt = esc(e.answer); }
+          else if (e.ok || e.status === 'ok') { badge = '<span class="qa-badge ok">answered</span>'; aCls='a'; aTxt = esc(e.answer); }
+          else if (e.status === 'weak') { badge = '<span class="qa-badge fail">needs full training</span>'; aCls='a'; aTxt = esc(e.answer); }
+          else if (e.status === 'answered' && e.answer) { aCls='a'; aTxt = esc(e.answer); }
+          return `<div class="qa-pair">
+            <div class="q">${esc(e.question)}</div>
+            <div class="${aCls}">${aTxt}</div>
+            ${badge}
+          </div>`;
+        }).join("") || '<p style="color:var(--muted);font-size:0.85rem">Generating business questions and starting the conversation…</p>';
+
+        const fixHtml = fixing.map(l => `<div class="log-line"><span class="ts">${l.t||''}</span>${esc(l.text)}</div>`).join("")
+          || '<div class="log-line" style="color:var(--muted)">No fixes needed yet.</div>';
+        const optHtml = optimization.map(l => `<div class="log-line"><span class="ts">${l.t||''}</span>${esc(l.text)}</div>`).join("")
+          || '<div class="log-line" style="color:var(--muted)">Waiting…</div>';
+
+        bodyEl.innerHTML = `
+          <div class="live-grid">
+            <div class="live-counter">
+              <div class="lc"><b>${answered}</b>/${total||'…'} asked</div>
+              <div class="lc"><b>${fixed}</b> fixed live</div>
+              <div class="lc">${esc(job.bot_name||'')}</div>
+            </div>
+            <div class="live-convo">${convo}</div>
+            <div class="live-panels">
+              <div class="live-panel fix"><h4><span class="live-dot" style="background:#f59e0b"></span>Fixing</h4>${fixHtml}</div>
+              <div class="live-panel opt"><h4><span class="live-dot" style="background:#60a5fa"></span>Optimization</h4>${optHtml}</div>
+            </div>
+          </div>`;
+
+        const convoEl = bodyEl.querySelector('.live-convo');
+        if (convoEl) convoEl.scrollTop = convoEl.scrollHeight;
+
+        if (job.status === "fixing") footEl.textContent = "Found weak answers — fixing and re-indexing live…";
+        else footEl.textContent = `Conversation in progress — ${answered}/${total||'…'} questions`;
+
+        if (job.status === "completed" || job.status === "failed") {
+          clearInterval(timer);
+          footEl.textContent = job.summary || (job.status === "failed" ? (job.error || "Failed") : "Done");
+          status.textContent = "Finished.";
+          await refreshChatFromSession(box);
+        } else if (tries > 160) {
+          clearInterval(timer);
+          footEl.textContent = "Still working in background — check back shortly.";
+        }
+      }, 2000);
+    }
+
+    async function load() {
+      const [biz, models, botList] = await Promise.all([
+        fetch(API + "/api/businesses").then(r => r.json()),
+        fetch(API + "/api/model-types").then(r => r.json()),
+        fetch(API + "/api/bots").then(r => r.json()),
+      ]);
+      businesses = biz;
+      bots = botList;
+      renderBusinesses();
+      renderModels(models);
+      refreshBotSelects();
+      renderBotsList();
+      refreshAgentChatBotSelect();
+    }
+
+    function renderModels(models) {
+      const el = document.getElementById("modelTypes");
+      el.innerHTML = models.map(m => `
+        <div class="model-opt ${m.id === selectedModel ? 'selected' : ''}" data-id="${m.id}" onclick="pickModel('${m.id}')">
+          <strong>${m.name}</strong>
+          <span>${m.description}</span>
+        </div>
+      `).join("");
+    }
+
+    function pickModel(id) {
+      selectedModel = id;
+      document.querySelectorAll(".model-opt").forEach(e => {
+        e.classList.toggle("selected", e.dataset.id === id);
+      });
+    }
+
+    function renderBusinesses() {
+      document.getElementById("businessGrid").innerHTML = businesses.map(b => `
+        <div class="biz-card ${b.id === selectedBusiness ? 'selected' : ''}" onclick="pickBusiness('${b.id}')">
+          <h3>${b.name}</h3>
+          <p>${b.description}</p>
+          <div class="tags"><span class="tag">${b.intent_count} topics</span></div>
+        </div>
+      `).join("");
+    }
+
+    function pickBusiness(id) {
+      selectedBusiness = id;
+      renderBusinesses();
+      loadSuggested(id);
+    }
+
+    async function loadSuggested(businessId) {
+      const t = await fetch(API + "/api/businesses/" + businessId).then(r => r.json());
+      const ul = document.getElementById("suggestedList");
+      ul.innerHTML = (t.suggested_customer_questions || []).map(q =>
+        `<li onclick="fillQA('${q.replace(/'/g, "\\'")}')">${q}</li>`
+      ).join("");
+    }
+
+    function fillQA(q) {
+      document.getElementById("customQ").value = q;
+      document.getElementById("customA").focus();
+    }
+
+    async function createBot() {
+      const name = document.getElementById("botName").value.trim();
+      if (!name) { document.getElementById("createStatus").textContent = "Enter a bot name."; return; }
+      document.getElementById("createStatus").textContent = "Creating and training...";
+      const res = await fetch(API + "/api/bots", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, business_id: selectedBusiness, model_type: selectedModel }),
+      });
+      const bot = await res.json();
+      document.getElementById("createStatus").textContent = res.ok ? `Bot "${bot.name}" ready (ID: ${bot.bot_id})` : "Error creating bot";
+      await load();
+    }
+
+    function refreshBotSelects() {
+      const opts = bots.map(b => `<option value="${b.bot_id}">${b.name} (${b.business_id})</option>`).join("");
+      ["datasetBot", "testBot", "embedBot"].forEach(id => {
+        const sel = document.getElementById(id);
+        sel.innerHTML = opts || "<option value=''>No bots — create one first</option>";
+      });
+      const testSel = document.getElementById("testBot");
+      if (testSel && !testSel.dataset.historyHooked) {
+        testSel.dataset.historyHooked = "1";
+        testSel.onchange = () => loadChatHistory();
+      }
+      if (bots[0]) {
+        loadSuggested(bots[0].business_id);
+        loadEmbedCode();
+        if (document.getElementById("panel-test").classList.contains("active")) {
+          loadChatHistory();
+        }
+      }
+    }
+
+    document.getElementById("datasetBot").onchange = e => {
+      const b = bots.find(x => x.bot_id === e.target.value);
+      if (b) loadSuggested(b.business_id);
+    };
+
+    async function addCustomQA() {
+      const bot_id = document.getElementById("datasetBot").value;
+      const question = document.getElementById("customQ").value.trim();
+      const answer = document.getElementById("customA").value.trim();
+      if (!bot_id || !question || !answer) {
+        document.getElementById("datasetStatus").textContent = "Select bot and fill question + answer.";
+        return;
+      }
+      document.getElementById("datasetStatus").textContent = "Training...";
+      const res = await fetch(API + `/api/bots/${bot_id}/custom-qa`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question, answer }),
+      });
+      document.getElementById("datasetStatus").textContent = res.ok ? "Added and retrained!" : "Failed";
+      document.getElementById("customQ").value = "";
+      document.getElementById("customA").value = "";
+      await load();
+    }
+
+    const STORAGE_KEY = "v1_test_user_id";
+    let testUserId = localStorage.getItem(STORAGE_KEY);
+    if (!testUserId) {
+      testUserId = "test-" + Math.random().toString(36).slice(2, 8);
+      localStorage.setItem(STORAGE_KEY, testUserId);
+    }
+
+    async function loadChatHistory() {
+      const bot_id = document.getElementById("testBot").value;
+      const box = document.getElementById("chatMsgs");
+      box.innerHTML = "";
+      if (!bot_id) return;
+      try {
+        const data = await fetch(
+          API + `/api/chat/history?bot_id=${encodeURIComponent(bot_id)}&user_id=${encodeURIComponent(testUserId)}`
+        ).then(r => r.json());
+        if (!data.messages || data.messages.length === 0) {
+          addMsg("bot", "No saved messages yet for this bot. Start chatting!");
+          return;
+        }
+        data.messages.forEach(m => addMsg(m.role === "user" ? "user" : "bot", m.content));
+      } catch (e) {
+        addMsg("bot", "Could not load history. Is the server running?");
+      }
+    }
+
+    async function clearChatHistory() {
+      const bot_id = document.getElementById("testBot").value;
+      if (!bot_id || !confirm("Clear all saved messages for this bot?")) return;
+      await fetch(
+        API + `/api/chat/history?bot_id=${encodeURIComponent(bot_id)}&user_id=${encodeURIComponent(testUserId)}`,
+        { method: "DELETE" }
+      );
+      document.getElementById("chatMsgs").innerHTML = "";
+    }
+
+    async function sendTest() {
+      const bot_id = document.getElementById("testBot").value;
+      const input = document.getElementById("testInput");
+      const msg = input.value.trim();
+      if (!msg || !bot_id) return;
+      addMsg("user", msg);
+      input.value = "";
+      addMsg("bot", "Thinking... (first message may take up to 2 min)");
+      try {
+        const res = await fetch(API + "/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ bot_id, user_id: testUserId, message: msg }),
+        });
+        const msgs = document.getElementById("chatMsgs");
+        msgs.removeChild(msgs.lastChild);
+        if (!res.ok) {
+          const err = await res.text();
+          addMsg("bot", "Error: server returned " + res.status + ". Restart start-v1.bat if needed.");
+          console.error(err);
+          return;
+        }
+        const data = await res.json();
+        addMsg("bot", data.response + (data.source ? ` [${data.source}]` : ""));
+      } catch (e) {
+        const msgs = document.getElementById("chatMsgs");
+        if (msgs.lastChild && msgs.lastChild.textContent.includes("Thinking")) {
+          msgs.removeChild(msgs.lastChild);
+        }
+        addMsg("bot", "Cannot reach API at " + API + "/chat — is the server running?");
+        console.error(e);
+      }
+    }
+
+    function addMsg(role, text) {
+      const d = document.createElement("div");
+      d.className = "msg " + role;
+      d.textContent = text;
+      document.getElementById("chatMsgs").appendChild(d);
+      document.getElementById("chatMsgs").scrollTop = 1e9;
+    }
+
+    async function loadEmbedCode() {
+      const bot_id = document.getElementById("embedBot").value;
+      if (!bot_id) return;
+      const data = await fetch(API + `/api/bots/${bot_id}/embed-code`).then(r => r.json());
+      document.getElementById("embedSnippet").textContent = data.snippet;
+    }
+
+    function copyEmbed() {
+      navigator.clipboard.writeText(document.getElementById("embedSnippet").textContent);
+      document.getElementById("embedStatus").textContent = "Copied!";
+    }
+
+    function renderBotsList() {
+      document.getElementById("botsList").innerHTML = bots.length ? bots.map(b => `
+        <div class="card">
+          <strong>${b.name}</strong> <span style="color:var(--muted)">#${b.bot_id}</span>
+          <p style="font-size:0.85rem;color:var(--muted);margin:0.5rem 0 0">
+            ${b.business_id} · ${b.model_type} · ${b.custom_qa?.length || 0} custom Q&A
+          </p>
+          <button class="btn btn-outline" style="margin-top:0.5rem" onclick="trainBot('${b.bot_id}')">Retrain</button>
+        </div>
+      `).join("") : "<p style='color:var(--muted)'>No bots yet.</p>";
+    }
+
+    async function trainBot(id) {
+      await fetch(API + `/api/bots/${id}/train`, { method: "POST" });
+      alert("Retrained!");
+    }
+
+    function toggleDevMode() {
+      const on = document.getElementById("devModeToggle").checked;
+      document.getElementById("devPanel").classList.toggle("visible", on);
+      localStorage.setItem("meraxes_dev_mode", on ? "1" : "0");
+    }
+
+    function renderAgentSummary(data) {
+      const pct = v => Math.round((v || 0) * 100);
+      const after = pct(data.post_refine_score);
+      const ok = data.status === "completed";
+      const us = data.user_summary || {};
+      const intents = data.intents_added || [];
+      const headline = us.headline || (ok ? "Bot optimization complete" : "Finished with issues");
+      const bullets = us.bullets || [];
+      const brief = us.research_brief || data.research_brief || "";
+
+      let detail = ok
+        ? (intents.length
+          ? `Added ${intents.length} new topic(s): ${intents.slice(0, 4).join(", ")}. Quality: ${after}%.`
+          : `Quality score: ${after}%.`)
+        : "Some steps did not complete. Turn on Developer mode for details.";
+
+      const stepsHtml = bullets.length
+        ? bullets.map(s => `<li>${s}</li>`).join("")
+        : ["Understood your request", "Updated your bot", "Verified answer quality"].map(s => `<li>${s}</li>`).join("");
+
+      document.getElementById("agentUserView").innerHTML = `
+        <span class="agent-badge ${ok ? "ok" : "warn"}">${ok ? "Done" : "Partial"}</span>
+        <h3 style="margin:0.25rem 0 0;font-size:1.1rem">${headline}</h3>
+        <p style="margin:0;color:var(--muted);font-size:0.9rem">${detail}</p>
+        ${brief ? `<p style="font-size:0.85rem;color:var(--text);margin:0.5rem 0 0;padding:0.75rem;background:var(--bg);border-radius:8px;border:1px solid var(--border)">${brief.replace(/</g, "&lt;")}</p>` : ""}
+        <ul class="agent-steps">${stepsHtml}</ul>
+        <p style="font-size:0.8rem;color:var(--muted);margin:0">Go to <strong>Test chat</strong> to try your updated bot.</p>
+      `;
+    }
+
+    async function runQualityAgent() {
+      const goal = document.getElementById("agentGoal").value.trim();
+      const dataset = document.getElementById("agentDataset").value;
+      const enable_research = document.getElementById("agentResearch").checked;
+      const statusEl = document.getElementById("agentStatus");
+      const btn = document.getElementById("runAgentBtn");
+      if (goal.length < 5) { statusEl.textContent = "Please describe what you want (at least a few words)."; return; }
+      btn.disabled = true;
+      statusEl.textContent = "Researching, adding topics, and training… this may take a few minutes.";
+      document.getElementById("agentResults").style.display = "none";
+      try {
+        const res = await fetch(API + "/agents/optimize", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ goal, dataset, test_case_limit: 6, target_score: 0.5, quick_train: true, enable_research }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          statusEl.textContent = data.detail || "Something went wrong. Try again.";
+          return;
+        }
+        document.getElementById("agentResults").style.display = "block";
+        document.getElementById("agentOutput").textContent = JSON.stringify(data, null, 2);
+        renderAgentSummary(data);
+        statusEl.textContent = "";
+        const devOn = localStorage.getItem("meraxes_dev_mode") === "1";
+        document.getElementById("devModeToggle").checked = devOn;
+        document.getElementById("devPanel").classList.toggle("visible", devOn);
+      } catch (e) {
+        statusEl.textContent = "Could not reach the server. Is Meraxes running?";
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    load();
+    loadSuggested("general");
+  </script>
+
+  <!-- Movable left build panel -->
+  <div id="createBuildPanel" class="create-build-panel hidden">
+    <div class="cbp-head" id="createBuildDrag">
+      <span class="live-dot"></span>
+      <h4 id="createBuildTitle">Building bot</h4>
+      <button type="button" class="cbp-close" onclick="closeCreatePanel()">&times;</button>
+    </div>
+    <div class="cbp-meta" id="createBuildMeta">pipeline: parse → template → db → engine → train</div>
+    <div class="cbp-body" id="createBuildBody"></div>
+    <div class="cbp-foot" id="createBuildFoot"></div>
+    <div class="cbp-resize" id="createBuildResize" title="Resize"></div>
+  </div>
+
+  <!-- Agent live action popup -->
+  <div class="agent-modal-overlay" id="agentModal">
+    <div class="agent-modal">
+      <div class="agent-modal-head">
+        <h3><span class="live-dot"></span><span id="agentModalTitle">Agent</span></h3>
+        <button class="agent-modal-close" onclick="closeAgentModal()">&times;</button>
+      </div>
+      <div class="agent-modal-body" id="agentModalBody"></div>
+      <div class="agent-modal-foot" id="agentModalFoot"></div>
+    </div>
+  </div>
+</body>
+</html>

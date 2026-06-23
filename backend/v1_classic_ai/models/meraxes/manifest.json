@@ -1,0 +1,12 @@
+{
+  "product": "Meraxes",
+  "trained_at": "2026-05-26",
+  "mode": "minimal",
+  "models": {
+    "general": {"bot_id": "meraxes_general", "intents": 8, "patterns": 40},
+    "saas": {"bot_id": "meraxes_saas", "intents": 8, "patterns": 40},
+    "ecommerce": {"bot_id": "meraxes_ecommerce", "intents": 8, "patterns": 40}
+  },
+  "embedder": "all-MiniLM-L6-v2",
+  "note": "Trained from existing v1_classic_ai/datasets. Run: python train_meraxes.py --all --minimal"
+}

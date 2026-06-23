@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multi-LLM Router</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+  <div class="max-w-4xl mx-auto p-6">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-emerald-400">Multi-LLM API Router</h1>
+      <p class="text-slate-400 mt-1">Smart routing · fallbacks · token optimization · parallel race</p>
+      <div id="status" class="mt-3 flex flex-wrap gap-2 text-xs"></div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+      <label class="block">
+        <span class="text-sm text-slate-400">Task</span>
+        <select id="task" class="mt-1 w-full bg-slate-800 border border-slate-700 rounded-lg p-2">
+          <option value="auto">Auto</option>
+          <option value="fast">Fast (Groq)</option>
+          <option value="long">Long (Gemini)</option>
+          <option value="reasoning">Reasoning</option>
+          <option value="cheap">Cheap</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="text-sm text-slate-400">Force provider</span>
+        <select id="provider" class="mt-1 w-full bg-slate-800 border border-slate-700 rounded-lg p-2">
+          <option value="">Auto route</option>
+          <option value="groq">Groq</option>
+          <option value="gemini">Gemini</option>
+          <option value="openrouter">OpenRouter</option>
+          <option value="together">Together</option>
+          <option value="xai">xAI Grok</option>
+          <option value="openai">OpenAI</option>
+        </select>
+      </label>
+      <label class="flex items-end gap-2 pb-2">
+        <input type="checkbox" id="parallel" class="rounded" />
+        <span class="text-sm">Parallel race</span>
+      </label>
+    </div>
+
+    <textarea id="input" rows="4" placeholder="Ask anything..."
+      class="w-full bg-slate-800 border border-slate-700 rounded-xl p-4 mb-3 focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+
+    <button id="send"
+      class="bg-emerald-600 hover:bg-emerald-500 px-6 py-2 rounded-lg font-medium transition">
+      Send
+    </button>
+
+    <div id="meta" class="mt-4 text-xs text-slate-500 hidden"></div>
+    <pre id="output" class="mt-4 bg-slate-900 border border-slate-800 rounded-xl p-4 whitespace-pre-wrap text-sm min-h-[120px]"></pre>
+
+    <section class="mt-8">
+      <h2 class="text-lg font-semibold mb-2">Usage</h2>
+      <pre id="usage" class="bg-slate-900 rounded-xl p-4 text-xs overflow-auto"></pre>
+    </section>
+  </div>
+
+  <script>
+    const API = window.location.origin;
+
+    async function loadStatus() {
+      const [h, c] = await Promise.all([
+        fetch(API + "/health").then(r => r.json()),
+        fetch(API + "/api/config").then(r => r.json()),
+      ]);
+      const el = document.getElementById("status");
+      el.innerHTML = Object.entries(h.providers).map(([k, on]) =>
+        `<span class="px-2 py-1 rounded ${on ? 'bg-emerald-900 text-emerald-300' : 'bg-slate-800 text-slate-500'}">${k}</span>`
+      ).join("");
+      document.getElementById("usage").textContent = JSON.stringify(c, null, 2);
+    }
+
+    document.getElementById("send").onclick = async () => {
+      const text = document.getElementById("input").value.trim();
+      if (!text) return;
+      const out = document.getElementById("output");
+      const meta = document.getElementById("meta");
+      out.textContent = "Routing...";
+      meta.classList.add("hidden");
+      const body = {
+        messages: [{ role: "user", content: text }],
+        task: document.getElementById("task").value,
+        provider: document.getElementById("provider").value || null,
+        parallel: document.getElementById("parallel").checked,
+      };
+      try {
+        const res = await fetch(API + "/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || res.statusText);
+        out.textContent = data.content;
+        meta.textContent = `provider=${data.provider} model=${data.model} task=${data.task} ${data.latency_ms}ms cached=${data.cached} parallel=${data.parallel_winner}`;
+        meta.classList.remove("hidden");
+        const u = await fetch(API + "/api/usage").then(r => r.json());
+        document.getElementById("usage").textContent = JSON.stringify(u, null, 2);
+      } catch (e) {
+        out.textContent = "Error: " + e.message;
+      }
+    };
+
+    loadStatus();
+  </script>
+</body>
+</html>

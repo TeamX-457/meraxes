@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <title>Chat Preview</title>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; background: #f1f5f9; height: 100vh; display: flex; flex-direction: column; }
+    header { padding: 12px 16px; background: #2563eb; color: #fff; font-weight: 600; }
+    #msgs { flex: 1; overflow-y: auto; padding: 12px; }
+    .u { text-align: right; margin: 8px 0; }
+    .u span { background: #2563eb; color: #fff; padding: 8px 12px; border-radius: 12px; display: inline-block; max-width: 85%; font-size: 14px; }
+    .b { text-align: left; margin: 8px 0; }
+    .b span { background: #fff; border: 1px solid #e2e8f0; padding: 8px 12px; border-radius: 12px; display: inline-block; max-width: 85%; font-size: 14px; }
+    footer { display: flex; border-top: 1px solid #e2e8f0; background: #fff; }
+    input { flex: 1; border: none; padding: 14px; outline: none; }
+    button { border: none; background: #2563eb; color: #fff; padding: 0 20px; cursor: pointer; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header>Chatbot preview</header>
+  <div id="msgs"></div>
+  <footer>
+    <input id="inp" placeholder="Message..." />
+    <button onclick="send()">Send</button>
+  </footer>
+  <script>
+    const API = window.location.origin;
+    const BOT_ID = "{{BOT_ID}}";
+    const userId = "preview-" + Math.random().toString(36).slice(2, 8);
+
+    function add(role, text) {
+      const d = document.createElement("div");
+      d.className = role;
+      d.innerHTML = "<span></span>";
+      d.querySelector("span").textContent = text;
+      document.getElementById("msgs").appendChild(d);
+      document.getElementById("msgs").scrollTop = 1e9;
+    }
+
+    async function send() {
+      const inp = document.getElementById("inp");
+      const msg = inp.value.trim();
+      if (!msg) return;
+      inp.value = "";
+      add("u", msg);
+      const res = await fetch(API + "/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bot_id: BOT_ID, user_id: userId, message: msg }),
+      });
+      const data = await res.json();
+      add("b", data.response);
+    }
+
+    document.getElementById("inp").onkeydown = e => { if (e.key === "Enter") send(); };
+    add("b", "Hello! Ask me anything about this business.");
+  </script>
+</body>
+</html>

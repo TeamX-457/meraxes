@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nova AI — V2</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg0: #07070f;
+    --bg1: #0f0f1a;
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+    --text: #f4f4f8;
+    --muted: #8b8ca3;
+    --accent: #7c6cff;
+    --accent2: #22d3ee;
+    --glow: rgba(124,108,255,0.35);
+    --user: linear-gradient(135deg, #5b4dff 0%, #7c3aed 100%);
+    --bot: linear-gradient(135deg, rgba(124,108,255,0.15) 0%, rgba(34,211,238,0.08) 100%);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: "DM Sans", system-ui, sans-serif;
+    background: var(--bg0);
+    color: var(--text);
+    overflow: hidden;
+  }
+  .mesh {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(124,108,255,0.22), transparent 50%),
+      radial-gradient(ellipse 60% 50% at 90% 80%, rgba(34,211,238,0.12), transparent 45%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(139,92,246,0.08), transparent 60%),
+      var(--bg0);
+  }
+  .grid-overlay {
+    position: fixed; inset: 0; z-index: 0; opacity: 0.04; pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .app {
+    position: relative; z-index: 1;
+    display: flex; height: 100vh;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 280px; flex-shrink: 0;
+    display: flex; flex-direction: column;
+    border-right: 1px solid var(--glass-border);
+    background: rgba(10,10,18,0.75);
+    backdrop-filter: blur(24px);
+  }
+  .brand {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .brand h1 {
+    font-family: "Syne", sans-serif;
+    font-size: 1.35rem; font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(120deg, #fff 30%, var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .brand p { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+
+  .sidebar-body { flex: 1; padding: 16px; overflow-y: auto; }
+  .label {
+    font-size: 0.65rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--muted); margin-bottom: 8px;
+  }
+  .select-wrap {
+    margin-bottom: 20px;
+  }
+  .select-wrap select {
+    width: 100%; padding: 12px 14px; border-radius: 12px;
+    border: 1px solid var(--glass-border);
+    background: #16162a; color: var(--text);
+    font-family: inherit; font-size: 0.88rem; cursor: pointer;
+    outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    color-scheme: dark;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238b8ca3' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+  }
+  .select-wrap select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--glow);
+  }
+  .select-wrap select option {
+    background: #12121f;
+    color: #f4f4f8;
+    padding: 10px;
+  }
+
+  .providers { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .chip {
+    font-size: 0.68rem; font-weight: 500; padding: 5px 10px;
+    border-radius: 999px; border: 1px solid var(--glass-border);
+    background: var(--glass); color: var(--muted);
+    transition: all 0.2s;
+  }
+  .chip.on {
+    color: #a5f3fc; border-color: rgba(34,211,238,0.35);
+    background: rgba(34,211,238,0.08);
+  }
+  .chip.off { opacity: 0.45; }
+
+  .status-card {
+    padding: 14px; border-radius: 14px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    font-size: 0.75rem; line-height: 1.5; color: var(--muted);
+  }
+  .status-card strong { color: var(--accent2); font-weight: 600; }
+
+  .train-card {
+    margin-top: 8px;
+    padding: 14px; border-radius: 14px;
+    border: 1px solid rgba(124,108,255,0.2);
+    background: rgba(124,108,255,0.06);
+    font-size: 0.72rem; line-height: 1.55; color: var(--muted);
+  }
+  .train-card h3 {
+    font-family: "Syne", sans-serif;
+    font-size: 0.78rem; font-weight: 700; color: var(--text);
+    margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .train-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent2); box-shadow: 0 0 8px var(--accent2);
+  }
+  .train-dot.off { background: #64748b; box-shadow: none; }
+  .train-row { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+  .train-row span:last-child { color: var(--text); font-weight: 500; text-align: right; }
+  .train-actions { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+  .btn-train {
+    width: 100%; padding: 9px 12px; border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    background: rgba(124,108,255,0.12); color: var(--text);
+    font-size: 0.72rem; font-weight: 600; cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+  }
+  .btn-train:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: rgba(124,108,255,0.22);
+  }
+  .btn-train:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-train.secondary {
+    background: transparent; color: var(--muted); font-weight: 500;
+  }
+  .train-msg { font-size: 0.68rem; margin-top: 8px; color: #a5f3fc; min-height: 1em; }
+
+  .sidebar-foot {
+    padding: 16px 20px; border-top: 1px solid var(--glass-border);
+  }
+  .btn-ghost {
+    width: 100%; padding: 11px; border-radius: 12px;
+    border: 1px dashed var(--glass-border);
+    background: transparent; color: var(--muted);
+    font-size: 0.82rem; cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover {
+    border-color: var(--accent); color: var(--text);
+    background: rgba(124,108,255,0.08);
+  }
+
+  /* Main */
+  .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .topbar {
+    height: 56px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    border-bottom: 1px solid var(--glass-border);
+    background: rgba(10,10,18,0.4);
+    backdrop-filter: blur(12px);
+  }
+  .topbar-badge {
+    font-size: 0.7rem; font-weight: 600; padding: 4px 12px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(124,108,255,0.25), rgba(34,211,238,0.15));
+    border: 1px solid rgba(124,108,255,0.3);
+    color: #c4b5fd;
+  }
+
+  .messages {
+    flex: 1; overflow-y: auto; scroll-behavior: smooth;
+    padding: 24px 20px 140px;
+  }
+  .messages-inner { max-width: 720px; margin: 0 auto; }
+
+  .hero {
+    text-align: center; padding: 48px 16px 40px;
+  }
+  .hero h2 {
+    font-family: "Syne", sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 700; letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+  .hero p { color: var(--muted); font-size: 0.95rem; max-width: 400px; margin: 0 auto 28px; }
+  .prompts {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    max-width: 520px; margin: 0 auto;
+  }
+  @media (max-width: 600px) { .prompts { grid-template-columns: 1fr; } }
+  .prompt-card {
+    text-align: left; padding: 14px 16px; border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    cursor: pointer; transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
+    font-size: 0.82rem; color: var(--text); line-height: 1.4;
+  }
+  .prompt-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(124,108,255,0.4);
+    box-shadow: 0 8px 32px var(--glow);
+  }
+  .prompt-card span { display: block; color: var(--muted); font-size: 0.7rem; margin-top: 4px; }
+
+  .msg {
+    display: flex; gap: 14px; margin-bottom: 24px;
+    animation: rise 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+  .msg.user { flex-direction: row-reverse; }
+  .av {
+    width: 36px; height: 36px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700;
+  }
+  .msg.user .av { background: var(--user); color: #fff; }
+  .msg.bot .av {
+    background: var(--bot);
+    border: 1px solid var(--glass-border);
+    color: var(--accent2);
+  }
+  .bubble-wrap { max-width: 85%; min-width: 0; }
+  .msg.user .bubble-wrap { align-items: flex-end; display: flex; flex-direction: column; }
+  .bubble {
+    padding: 14px 18px; border-radius: 18px;
+    font-size: 0.94rem; line-height: 1.65;
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .msg.user .bubble {
+    background: var(--user);
+    border-bottom-right-radius: 4px;
+    color: #fff;
+  }
+  .msg.bot .bubble {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-border);
+    border-bottom-left-radius: 4px;
+  }
+  .bubble.think { color: var(--muted); font-style: italic; }
+  .bubble code { background: rgba(0,0,0,0.35); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+  .bubble pre {
+    background: rgba(0,0,0,0.4); padding: 12px; border-radius: 10px;
+    overflow-x: auto; margin: 8px 0; font-size: 0.82rem;
+  }
+  .route-tag {
+    margin-top: 8px; font-size: 0.65rem; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 999px;
+    background: rgba(124,108,255,0.12);
+    border: 1px solid rgba(124,108,255,0.25);
+    color: #c4b5fd;
+  }
+  .route-tag::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent2); box-shadow: 0 0 8px var(--accent2);
+  }
+
+  /* Composer */
+  .composer-area {
+    position: fixed; bottom: 0; left: 280px; right: 0; z-index: 10;
+    padding: 16px 24px 24px;
+    background: linear-gradient(transparent, var(--bg0) 40%);
+    pointer-events: none;
+  }
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .composer-area { left: 0; }
+  }
+  .composer-box {
+    max-width: 720px; margin: 0 auto; pointer-events: auto;
+    background: rgba(18,18,28,0.9);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 6px 6px 6px 18px;
+    display: flex; align-items: flex-end; gap: 8px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 -4px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03) inset;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .composer-box:focus-within {
+    border-color: rgba(124,108,255,0.5);
+    box-shadow: 0 0 0 4px var(--glow), 0 -4px 48px rgba(0,0,0,0.4);
+  }
+  #input {
+    flex: 1; border: none; background: transparent;
+    color: var(--text); font-family: inherit; font-size: 0.95rem;
+    resize: none; max-height: 160px; min-height: 28px;
+    padding: 12px 0; outline: none;
+  }
+  #input::placeholder { color: var(--muted); }
+  .send {
+    width: 44px; height: 44px; border-radius: 14px; border: none;
+    background: linear-gradient(135deg, var(--accent), #5b21b6);
+    color: #fff; cursor: pointer; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.15s, opacity 0.15s;
+    box-shadow: 0 4px 20px var(--glow);
+  }
+  .send:hover { transform: scale(1.04); }
+  .send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .hint { text-align: center; font-size: 0.68rem; color: var(--muted); margin-top: 10px; }
+
+  .chat-history-section { margin-bottom: 16px; }
+  .chat-history-list {
+    max-height: 220px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .chat-history-list::-webkit-scrollbar { width: 4px; }
+  .chat-history-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  .chat-item {
+    text-align: left; padding: 10px 12px; border-radius: 10px;
+    border: 1px solid transparent; background: var(--glass);
+    cursor: pointer; transition: all 0.15s; font-family: inherit;
+    color: var(--text); width: 100%;
+  }
+  .chat-item:hover { border-color: var(--glass-border); background: rgba(124,108,255,0.08); }
+  .chat-item.active {
+    border-color: rgba(124,108,255,0.45);
+    background: rgba(124,108,255,0.14);
+  }
+  .chat-item-title {
+    font-size: 0.78rem; font-weight: 500; line-height: 1.35;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .chat-item-meta { font-size: 0.65rem; color: var(--muted); margin-top: 3px; }
+  .chat-history-empty { font-size: 0.72rem; color: var(--muted); padding: 8px 4px; }
+  .chat-item-row { display: flex; align-items: stretch; gap: 4px; }
+  .chat-item-row .chat-item { flex: 1; min-width: 0; }
+  .btn-icon-del {
+    flex-shrink: 0; width: 32px; border-radius: 8px;
+    border: 1px solid transparent; background: transparent;
+    color: var(--muted); cursor: pointer; font-size: 0.85rem;
+    opacity: 0; transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .chat-item-row:hover .btn-icon-del { opacity: 1; }
+  .btn-icon-del:hover { color: #f87171; border-color: rgba(248,113,113,0.35); background: rgba(248,113,113,0.08); }
+  .msg { position: relative; }
+  .msg-del {
+    position: absolute; top: 4px; right: 4px;
+    width: 26px; height: 26px; border-radius: 8px;
+    border: none; background: rgba(0,0,0,0.45); color: #fca5a5;
+    cursor: pointer; font-size: 0.75rem; opacity: 0; transition: opacity 0.15s;
+    z-index: 2;
+  }
+  .msg:hover .msg-del { opacity: 1; }
+  .msg.user .msg-del { right: auto; left: 4px; }
+  .sidebar-actions { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .btn-danger-ghost {
+    width: 100%; padding: 9px; border-radius: 10px;
+    border: 1px dashed rgba(248,113,113,0.35);
+    background: transparent; color: #fca5a5;
+    font-size: 0.72rem; cursor: pointer; font-family: inherit;
+  }
+  .btn-danger-ghost:hover { background: rgba(248,113,113,0.08); }
+
+</style>
+</head>
+<body>
+<div class="mesh"></div>
+<div class="grid-overlay"></div>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <h1>Nova AI</h1>
+      <p>Multi-provider router · port 8006</p>
+    </div>
+    <div class="sidebar-body">
+      <div class="select-wrap">
+        <div class="label">Routing mode</div>
+        <select id="task">
+          <option value="auto">Auto — smart pick</option>
+          <option value="fast">Fast — Groq</option>
+          <option value="reasoning">Deep — best model</option>
+          <option value="long">Long context — Gemini</option>
+          <option value="cheap">Economy — lowest cost</option>
+        </select>
+      </div>
+      <div class="select-wrap">
+        <div class="label">Quality tier</div>
+        <select id="tier">
+          <option value="strong" selected>Strong — cloud router</option>
+          <option value="fast">Fast — quick replies</option>
+          <option value="local">Local — Ollama on your PC</option>
+        </select>
+      </div>
+      <div class="label">Providers</div>
+      <div class="providers" id="providers"></div>
+      <div class="status-card" id="status">Connecting…</div>
+
+      <div class="chat-history-section">
+        <div class="label">Recent chats</div>
+        <div class="chat-history-list" id="chatHistoryList">
+          <div class="chat-history-empty">Loading…</div>
+        </div>
+      </div>
+
+      <div class="train-card" id="trainPanel">
+        <h3><span class="train-dot" id="trainDot"></span> Silent training</h3>
+        <div class="train-row"><span>V1 intents</span><span id="tV1">—</span></div>
+        <div class="train-row"><span>Queue</span><span id="tQueue">0</span></div>
+        <div class="train-row"><span>Learned pairs</span><span id="tApplied">0</span></div>
+        <div class="train-row"><span>Local export</span><span id="tFinetune">0</span></div>
+        <div class="train-row"><span>Last V1 train</span><span id="tLast">never</span></div>
+        <div class="train-row"><span>Ollama model</span><span id="tOllama">—</span></div>
+        <div class="train-actions">
+          <button type="button" class="btn-train" id="btnTrainV1" onclick="trainV1()">Train V1 now</button>
+          <button type="button" class="btn-train secondary" id="btnOllama" onclick="buildOllama(false)">Update Modelfile</button>
+          <button type="button" class="btn-train secondary" id="btnOllamaCreate" onclick="buildOllama(true)">Build Ollama model</button>
+        </div>
+        <div class="train-msg" id="trainMsg"></div>
+      </div>
+    </div>
+    <div class="sidebar-foot">
+      <button type="button" class="btn-ghost" onclick="newChat()">+ New conversation</button>
+      <div class="sidebar-actions">
+        <button type="button" class="btn-danger-ghost" onclick="clearCurrentChat()">Delete all messages in this chat</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <span class="topbar-badge" id="modeBadge">Embedded router</span>
+    </header>
+    <div class="messages" id="scroll">
+      <div class="messages-inner" id="inner">
+        <div class="hero" id="hero">
+          <h2>What can I build for you?</h2>
+          <p>Your own router picks Groq, Gemini, OpenRouter, xAI, or OpenAI — automatically.</p>
+          <div class="prompts">
+            <button type="button" class="prompt-card" onclick="go('Write a product pitch for an AI chat platform')">
+              Product pitch <span>for AI chat</span>
+            </button>
+            <button type="button" class="prompt-card" onclick="go('Explain multi-LLM routing in 3 bullet points')">
+              Explain routing <span>simple bullets</span>
+            </button>
+            <button type="button" class="prompt-card" onclick="go('Debug why my FastAPI server returns 503')">
+              Debug FastAPI <span>503 errors</span>
+            </button>
+            <button type="button" class="prompt-card" onclick="go('Compare Groq vs Gemini for chatbots')">
+              Compare models <span>Groq vs Gemini</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="composer-area">
+  <div class="composer-box">
+    <textarea id="input" rows="1" placeholder="Message Nova…"></textarea>
+    <button type="button" class="send" id="sendBtn" onclick="send()" title="Send">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+  <p class="hint">Messages go to cloud LLM APIs (Groq, Gemini, etc.) or free Pollinations for images · Delete here removes local DB, memory &amp; files permanently — provider logs are separate</p>
+</div>
+
+<script>
+const API = location.origin;
+const inner = document.getElementById("inner");
+const hero = document.getElementById("hero");
+const scroll = document.getElementById("scroll");
+const input = document.getElementById("input");
+const sendBtn = document.getElementById("sendBtn");
+const statusEl = document.getElementById("status");
+const providersEl = document.getElementById("providers");
+const modeBadge = document.getElementById("modeBadge");
+const trainDot = document.getElementById("trainDot");
+const trainMsg = document.getElementById("trainMsg");
+const chatHistoryList = document.getElementById("chatHistoryList");
+
+function formatChatDate(ts) {
+  if (!ts) return "";
+  try {
+    const d = new Date(ts.includes("T") ? ts : ts.replace(" ", "T") + "Z");
+    const now = new Date();
+    if (d.toDateString() === now.toDateString()) {
+      return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    }
+    return d.toLocaleDateString([], { month: "short", day: "numeric" });
+  } catch {
+    return ts.slice(0, 10);
+  }
+}
+
+function renderConversationList(conversations) {
+  if (!chatHistoryList) return;
+  if (!conversations?.length) {
+    chatHistoryList.innerHTML = '<div class="chat-history-empty">No past chats yet</div>';
+    return;
+  }
+  chatHistoryList.innerHTML = "";
+  conversations.forEach(c => {
+    const row = document.createElement("div");
+    row.className = "chat-item-row";
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "chat-item" + (c.user_id === userId ? " active" : "");
+    btn.innerHTML =
+      `<div class="chat-item-title">${escapeHtml(c.title)}</div>` +
+      `<div class="chat-item-meta">${formatChatDate(c.updated)} · ${c.turns} msgs</div>`;
+    btn.onclick = () => switchChat(c.user_id);
+    const del = document.createElement("button");
+    del.type = "button";
+    del.className = "btn-icon-del";
+    del.title = "Delete chat permanently";
+    del.textContent = "×";
+    del.onclick = (e) => { e.stopPropagation(); deleteConversation(c.user_id, c.title); };
+    row.appendChild(btn);
+    row.appendChild(del);
+    chatHistoryList.appendChild(row);
+  });
+}
+
+async function deleteConversation(id, title) {
+  if (!confirm(`Permanently delete this chat?\n\n"${title}"\n\nThis removes all messages and local memory. Cloud API logs (if any) are on the provider's side.`)) return;
+  try {
+    await fetch(`${API}/api/chat/conversations/${encodeURIComponent(id)}`, { method: "DELETE" });
+    if (id === userId) {
+      newChat();
+    } else {
+      await loadConversationList();
+    }
+  } catch {
+    alert("Could not delete chat");
+  }
+}
+
+async function clearCurrentChat() {
+  if (!confirm("Permanently delete ALL messages in this chat? (Local DB + memory — cannot undo)")) return;
+  try {
+    await fetch(`${API}/api/chat/history?user_id=${encodeURIComponent(userId)}`, { method: "DELETE" });
+    inner.innerHTML = "";
+    inner.appendChild(hero);
+    hero.style.display = "block";
+    await loadConversationList();
+  } catch {
+    alert("Could not clear chat");
+  }
+}
+
+async function deleteMessageTurn(msgId) {
+  if (!confirm("Delete this message and its reply permanently?")) return;
+  try {
+    await fetch(`${API}/api/chat/messages/${msgId}?user_id=${encodeURIComponent(userId)}`, { method: "DELETE" });
+    await loadHistory(true);
+    await loadConversationList();
+  } catch {
+    alert("Could not delete message");
+  }
+}
+
+function escapeHtml(s) {
+  const d = document.createElement("div");
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+async function loadConversationList() {
+  try {
+    const data = await fetch(API + "/api/chat/conversations?limit=50").then(r => r.json());
+    renderConversationList(data.conversations || []);
+  } catch {
+    if (chatHistoryList) chatHistoryList.innerHTML = '<div class="chat-history-empty">Could not load chats</div>';
+  }
+}
+
+async function switchChat(id) {
+  if (id === userId) return;
+  userId = id;
+  localStorage.setItem("nova_user_id", id);
+  inner.innerHTML = "";
+  inner.appendChild(hero);
+  hero.style.display = "block";
+  await loadHistory(true);
+  await loadConversationList();
+  input.focus();
+}
+
+function getUserId() {
+  let id = localStorage.getItem("nova_user_id") || localStorage.getItem("v2_user_id");
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem("nova_user_id", id);
+  } else if (!localStorage.getItem("nova_user_id")) {
+    localStorage.setItem("nova_user_id", id);
+  }
+  return id;
+}
+let userId = getUserId();
+let busy = false;
+
+function hideHero() { if (hero) hero.style.display = "none"; }
+
+function fmt(text) {
+  return text
+    .replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+}
+
+function addMsg(role, content, meta, thinking, imageUrl, msgId) {
+  hideHero();
+  const row = document.createElement("div");
+  row.className = "msg " + (role === "user" ? "user" : "bot");
+  if (msgId) row.dataset.msgId = String(msgId);
+  const av = document.createElement("div");
+  av.className = "av";
+  av.textContent = role === "user" ? "You" : "N";
+  const wrap = document.createElement("div");
+  wrap.className = "bubble-wrap";
+  const bubble = document.createElement("div");
+  bubble.className = "bubble" + (thinking ? " think" : "");
+  if (role === "assistant" && !thinking) bubble.innerHTML = fmt(content);
+  else bubble.textContent = content;
+  wrap.appendChild(bubble);
+  if (imageUrl) {
+    const img = document.createElement("img");
+    img.src = imageUrl.startsWith("http") ? imageUrl : (API + imageUrl);
+    img.alt = "Generated image";
+    img.className = "gen-image";
+    img.style.cssText = "max-width:100%;border-radius:12px;margin-top:10px;display:block;";
+    wrap.appendChild(img);
+  }
+  if (meta) {
+    const tag = document.createElement("div");
+    tag.className = "route-tag";
+    tag.textContent = meta;
+    wrap.appendChild(tag);
+  }
+  row.appendChild(av);
+  row.appendChild(wrap);
+  if (msgId && !thinking && role === "user") {
+    const del = document.createElement("button");
+    del.type = "button";
+    del.className = "msg-del";
+    del.title = "Delete message + reply";
+    del.textContent = "×";
+    del.onclick = () => deleteMessageTurn(msgId);
+    row.appendChild(del);
+  }
+  inner.appendChild(row);
+  scroll.scrollTop = scroll.scrollHeight;
+  return row;
+}
+
+function go(t) { input.value = t; resize(); send(); }
+
+function resize() {
+  input.style.height = "auto";
+  input.style.height = Math.min(input.scrollHeight, 160) + "px";
+}
+input.addEventListener("input", resize);
+input.addEventListener("keydown", e => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+});
+
+function renderProviders(map) {
+  providersEl.innerHTML = "";
+  const names = { gemini: "Gemini", groq: "Groq", together: "Together", openrouter: "OpenRouter", openai: "OpenAI", xai: "Grok" };
+  for (const [k, on] of Object.entries(map || {})) {
+    const c = document.createElement("span");
+    c.className = "chip " + (on ? "on" : "off");
+    c.textContent = names[k] || k;
+    providersEl.appendChild(c);
+  }
+}
+
+async function loadTrainingStatus() {
+  try {
+    const ts = await fetch(API + "/api/training/status").then(r => r.json());
+    const on = ts.silent_v1_enabled;
+    trainDot.className = "train-dot" + (on ? "" : " off");
+    document.getElementById("tV1").textContent = on ? "active" : "off";
+    document.getElementById("tQueue").textContent = ts.queue_pending ?? 0;
+    document.getElementById("tApplied").textContent = ts.applied ?? 0;
+    document.getElementById("tFinetune").textContent = ts.finetune_examples ?? 0;
+    document.getElementById("tLast").textContent = ts.last_train || "never";
+    const om = ts.ollama?.custom_model || "nova-v2-learned";
+    const ollamaLine = ts.last_ollama_build
+      ? `${om} · ${ts.last_ollama_build.split("T")[1] || ts.last_ollama_build}`
+      : (ts.finetune_examples ? `${om} (not built)` : "—");
+    document.getElementById("tOllama").textContent = ollamaLine;
+    return ts;
+  } catch {
+    trainDot.className = "train-dot off";
+    return null;
+  }
+}
+
+async function trainV1() {
+  const btn = document.getElementById("btnTrainV1");
+  btn.disabled = true;
+  trainMsg.textContent = "V1 training started…";
+  try {
+    await fetch(API + "/api/training/run-v1", { method: "POST" });
+    trainMsg.textContent = "Training in background — refresh in ~1 min";
+    setTimeout(loadTrainingStatus, 8000);
+    setTimeout(loadTrainingStatus, 45000);
+  } catch {
+    trainMsg.textContent = "Failed to start training";
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function buildOllama(createModel) {
+  const btn = document.getElementById(createModel ? "btnOllamaCreate" : "btnOllama");
+  btn.disabled = true;
+  trainMsg.textContent = createModel ? "Building Ollama model…" : "Writing Modelfile…";
+  try {
+    const res = await fetch(API + "/api/training/build-ollama", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ create_model: createModel }),
+    });
+    const d = await res.json();
+    if (d.ok) {
+      trainMsg.textContent = createModel
+        ? (d.message || "Ollama build started — check Ollama app")
+        : ("Modelfile saved" + (d.modelfile ? "" : ""));
+    } else {
+      trainMsg.textContent = d.error || "Build failed";
+    }
+    if (createModel) setTimeout(loadTrainingStatus, 15000);
+    else loadTrainingStatus();
+  } catch {
+    trainMsg.textContent = "Build request failed";
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function loadConfig() {
+  try {
+    const [h, c] = await Promise.all([
+      fetch(API + "/health").then(r => r.json()),
+      fetch(API + "/api/config").then(r => r.json()),
+    ]);
+    const prov = c.router_providers || h.router || {};
+    renderProviders(prov);
+    const on = Object.values(prov).filter(Boolean).length;
+    const ollama = h.llm?.ollama === "ok" ? " · Ollama ready" : "";
+    const mem = h.memory?.vectors != null ? ` · ${h.memory.vectors} memories` : "";
+    let train = "";
+    const ts = await loadTrainingStatus();
+    if (ts?.silent_v1_enabled) {
+      train = ` · V1 learning: ${ts.queue_pending || 0} queued`;
+    }
+    statusEl.innerHTML = `<strong>${on}</strong> cloud providers${ollama}${mem}${train}`;
+    modeBadge.textContent = c.embedded_router ? "Embedded router" : (c.llm_mode || "V2");
+    if (c.default_tier) document.getElementById("tier").value = c.default_tier;
+  } catch {
+    statusEl.textContent = "Offline — run start-v2.bat";
+    statusEl.style.color = "#fca5a5";
+  }
+}
+
+function newChat() {
+  userId = crypto.randomUUID();
+  localStorage.setItem("nova_user_id", userId);
+  inner.innerHTML = "";
+  inner.appendChild(hero);
+  hero.style.display = "block";
+  input.value = "";
+  resize();
+  loadConversationList();
+}
+
+async function send() {
+  const text = input.value.trim();
+  if (!text || busy) return;
+  busy = true;
+  sendBtn.disabled = true;
+  const userRow = addMsg("user", text, null, false, null, null);
+  input.value = "";
+  resize();
+  const isImg = /\b(create|generate|make|draw|design)\b.*\b(image|picture|photo|illustration|drawing)\b/i.test(text)
+    || /\b(image|picture|photo)\s+of\b/i.test(text);
+  const think = addMsg("assistant", isImg ? "Generating image (free cloud)…" : "Routing to best provider…", null, true);
+  try {
+    const res = await fetch(API + "/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: text,
+        user_id: userId,
+        tier: document.getElementById("tier").value,
+        task: document.getElementById("task").value,
+      }),
+    });
+    think.remove();
+    if (!res.ok) {
+      let err = "Request failed (" + res.status + ")";
+      try {
+        const ej = await res.json();
+        if (ej.detail) err += ": " + (typeof ej.detail === "string" ? ej.detail : JSON.stringify(ej.detail));
+      } catch (_) {}
+      addMsg("assistant", err);
+      return;
+    }
+    const d = await res.json();
+    if (d.user_message_id && userRow) {
+      userRow.dataset.msgId = String(d.user_message_id);
+      const del = document.createElement("button");
+      del.type = "button";
+      del.className = "msg-del";
+      del.title = "Delete message + reply";
+      del.textContent = "×";
+      del.onclick = () => deleteMessageTurn(d.user_message_id);
+      userRow.appendChild(del);
+    }
+    let meta = `${d.provider} · ${d.model} · ${d.latency_ms}ms`;
+    if (d.memory_hits) meta += ` · ${d.memory_hits} memories used`;
+    addMsg("assistant", d.reply, meta, false, d.image_url || null);
+    loadTrainingStatus();
+    loadConversationList();
+  } catch (e) {
+    think.remove();
+    addMsg("assistant", "Cannot reach server. Run: AImodel\\v2_llm_agent\\start-v2.bat");
+  } finally {
+    busy = false;
+    sendBtn.disabled = false;
+    input.focus();
+  }
+}
+
+async function loadHistory(clearFirst) {
+  try {
+    const data = await fetch(`${API}/api/chat/history?user_id=${encodeURIComponent(userId)}&limit=80`).then(r => r.json());
+    if (!data.messages?.length) return;
+    if (clearFirst) {
+      inner.innerHTML = "";
+      inner.appendChild(hero);
+    }
+    hideHero();
+    data.messages.forEach(m => {
+      addMsg(
+        m.role === "user" ? "user" : "assistant",
+        m.content,
+        null,
+        false,
+        null,
+        m.role === "user" ? m.id : null
+      );
+    });
+  } catch (_) {}
+}
+
+loadConfig();
+loadConversationList();
+loadHistory(false);
+setInterval(loadTrainingStatus, 30000);
+input.focus();
+</script>
+</body>
+</html>
